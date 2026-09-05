@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuthStore } from "@/store/useAuthStore";
+import UserMenu from "../layout/UserMenu";
 
 const navLinks = [
     { label: "Home", href: "/" },
@@ -14,6 +16,7 @@ const navLinks = [
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeLink, setActiveLink] = useState(navLinks[0].label);
+    const user = useAuthStore((state) => state.user);
 
     const handleLinkClick = (label) => {
         setActiveLink(label);
@@ -57,19 +60,23 @@ export default function Navbar() {
                 </ul>
 
                 {/* Right actions */}
-                <div className="hidden items-center gap-6 md:flex">
-                    {/* <Link href="/auth" className="text-sm font-medium text-slate-700 hover:text-slate-900">
+                {
+                    user ? <UserMenu /> : (
+                        <div className="hidden items-center gap-6 md:flex">
+                            {/* <Link href="/auth" className="text-sm font-medium text-slate-700 hover:text-slate-900">
                         Login
-                    </Link> */}
-                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                        <Link
-                            href="/auth"
-                            className="rounded-full bg-gradient-to-r from-indigo-600 to-blue-600 px-5 py-2 text-sm font-medium text-white shadow-sm"
-                        >
-                            Get Started
-                        </Link>
-                    </motion.div>
-                </div>
+                        </Link> */}
+
+                            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                                <Link
+                                    href="/auth"
+                                    className="rounded-full bg-gradient-to-r from-indigo-600 to-blue-600 px-5 py-2 text-sm font-medium text-white shadow-sm"
+                                >
+                                    Get Started
+                                </Link>
+                            </motion.div>
+                        </div>
+                    )}
 
                 {/* Animated hamburger / close icon */}
                 <button
@@ -147,17 +154,21 @@ export default function Navbar() {
                                     </motion.li>
                                 ))}
 
-                                <motion.li
-                                    variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0 } }}
-                                >
-                                    <Link
-                                        href="/auth"
-                                        onClick={() => setIsOpen(false)}
-                                        className="mt-1 block rounded-full bg-gradient-to-r from-indigo-600 to-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white"
-                                    >
-                                        Get Started
-                                    </Link>
-                                </motion.li>
+                                {
+                                    user ?
+                                        <UserMenu /> :
+                                        <motion.li
+                                            variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0 } }}
+                                        >
+                                            <Link
+                                                href="/auth"
+                                                onClick={() => setIsOpen(false)}
+                                                className="mt-1 block rounded-full bg-gradient-to-r from-indigo-600 to-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white"
+                                            >
+                                                Get Started
+                                            </Link>
+                                        </motion.li>
+                                }
                             </motion.ul>
                         </motion.div>
                     </>

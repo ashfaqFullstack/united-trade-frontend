@@ -3,24 +3,31 @@ import { registerUser, loginUser, logoutUser, forgotPassword, resetPassword } fr
 import { useAuthStore } from '@/store/useAuthStore';
 import { queryClient } from '@/lib/queryClient';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+
+
 export const useRegister = () => {
     const setUser = useAuthStore((state) => state.setUser);
+    const router = useRouter();
     return useMutation({
         mutationFn: registerUser,
         onSuccess: (data) => {
             setUser(data.user);
             toast.success('Account created successfully!');
+            router.push('/');
         },
     });
 };
 
 export const useLogin = () => {
     const setUser = useAuthStore((state) => state.setUser);
+    const router = useRouter();
     return useMutation({
         mutationFn: loginUser,
         onSuccess: (data) => {
             setUser(data.user);
             toast.success(`Welcome back, ${data.user.name}!`);
+            router.push('/');
         },
     });
 };
