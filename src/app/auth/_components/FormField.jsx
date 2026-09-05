@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
-export default function FormField({ label, icon: Icon, type = 'text', hint, isPassword, ...props }) {
+export default function FormField({ label, icon: Icon, type = 'text', hint, isPassword, error, ...props }) {
     const [show, setShow] = useState(false);
 
     return (
@@ -14,8 +13,10 @@ export default function FormField({ label, icon: Icon, type = 'text', hint, isPa
                 {Icon && <Icon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />}
                 <input
                     type={isPassword ? (show ? 'text' : 'password') : type}
-                    className={`w-full rounded-xl border border-slate-200 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 ${Icon ? 'pl-9' : 'pl-3'
-                        } ${isPassword ? 'pr-9' : 'pr-3'}`}
+                    className={`w-full rounded-xl border py-2.5 text-sm outline-none transition focus:ring-2 ${error
+                        ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
+                        : 'border-slate-200 focus:border-indigo-500 focus:ring-indigo-100'
+                        } ${Icon ? 'pl-9' : 'pl-3'} ${isPassword ? 'pr-9' : 'pr-3'}`}
                     {...props}
                 />
                 {isPassword && (
@@ -28,7 +29,11 @@ export default function FormField({ label, icon: Icon, type = 'text', hint, isPa
                     </button>
                 )}
             </div>
-            {hint && <p className="mt-1 text-xs text-slate-400">{hint}</p>}
+            {error ? (
+                <p className="mt-1 text-xs font-medium text-red-500">{error}</p>
+            ) : (
+                hint && <p className="mt-1 text-xs text-slate-400">{hint}</p>
+            )}
         </div>
     );
 }

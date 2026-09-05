@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useAuthStore } from '@/store/useAuthStore';
 import { queryClient } from '@/lib/queryClient';
+import { toast } from 'sonner';
 
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -9,7 +10,8 @@ const api = axios.create({
 
 const clearSessionAndRedirect = () => {
     useAuthStore.getState().clearUser();
-    queryClient.clear(); // clears ALL cached data — manual or auto logout dono cases
+    queryClient.clear();
+    toast.error('Session expired. Please login again.');
     if (typeof window !== 'undefined') {
         window.location.href = '/login';
     }
@@ -47,6 +49,11 @@ api.interceptors.response.use(
             } finally {
                 isRefreshing = false;
             }
+        }
+
+        const message = error.response?.data?.message || 'Something went wrong';
+        if (error.response?.status !== 401) {
+            toast.error(message);
         }
 
         return Promise.reject(error);

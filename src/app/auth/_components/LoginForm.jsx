@@ -1,51 +1,67 @@
 'use client';
 
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { CiMail, CiLock } from "react-icons/ci";
 import FormField from './FormField';
 import SocialButton from './SocialButton';
 import { useLogin } from '@/hooks/useAuth';
+import { toast } from 'sonner';
+import Link from 'next/link';
+
+const loginSchema = z.object({
+    email: z.string().min(1, 'Email is required').email('Enter a valid email address'),
+    password: z.string().min(1, 'Password is required'),
+});
 
 export default function LoginForm() {
-    const [form, setForm] = useState({ email: '', password: '' });
-    const { mutate: login, isPending, error } = useLogin();
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors },
+    } = useForm({ resolver: zodResolver(loginSchema) });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        login(form);
+    const { mutate: login, isPending } = useLogin();
+
+    const onSubmit = (data) => {
+        login(data, {
+            onError: (error) => {
+                const message = error.response?.data?.message || 'Login failed';
+                setError('root', { message });
+                toast.error(message);
+            },
+        });
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <FormField
                 label="Email Address"
                 icon={CiMail}
                 placeholder="Enter your email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                required
+                error={errors.email?.message}
+                {...register('email')}
             />
             <FormField
                 label="Password"
                 icon={CiLock}
                 isPassword
                 placeholder="Enter your password"
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-                required
+                error={errors.password?.message}
+                {...register('password')}
             />
 
-            <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 text-slate-600">
+            <div className="flex  text-sm">
+                {/* <label className="flex items-center gap-2 text-slate-600">
                     <input type="checkbox" className="rounded border-slate-300 text-indigo-600" />
                     Remember me
-                </label>
-                <a href="/forgot-password" className="font-medium text-indigo-600">
+                </label> */}
+                <Link href="/auth/forgot-password" className="font-medium text-indigo-600">
                     Forgot Password?
-                </a>
+                </Link>
             </div>
-
-            {error && <p className="text-sm text-red-500">{error.response?.data?.message || 'Login failed'}</p>}
 
             <button
                 type="submit"
@@ -55,9 +71,6 @@ export default function LoginForm() {
                 {isPending ? 'Logging in...' : 'Login →'}
             </button>
 
-            <div className="flex items-center gap-3 text-xs text-slate-400">
-                <div className="h-px flex-1 bg-slate-200" /> or continue with <div className="h-px flex-1 bg-slate-200" />
-            </div>
         </form>
     );
 }
