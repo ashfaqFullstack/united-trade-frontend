@@ -12,9 +12,9 @@ export default function AuthCard() {
 
     return (
         <div className="grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-3xl bg-white shadow-2xl md:grid-cols-2">
-            <SidePanel mode={mode} />
-            {/* <div className="hidden md:block">
-            </div> */}
+            <div className="hidden md:block">
+                <SidePanel mode={mode} />
+            </div>
 
             <div className="p-10">
                 <div className="mb-8 flex justify-center">

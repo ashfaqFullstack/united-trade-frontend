@@ -62,7 +62,7 @@ export default function SidePanel({ mode }) {
         <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-2xl md:rounded-l-3xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-purple-600 p-10 text-white">
             <div className="flex items-center gap-2 text-lg font-semibold">
                 <LuInfinity className="h-6 w-6" />
-                Barter
+                United Trade
             </div>
 
             <AnimatePresence mode="wait">
