@@ -10,6 +10,7 @@ import { getDashboardRoutes } from '@/const/dashboardConfig';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { usePendingUsers } from '@/hooks/useAdmin';
+import PendingApprovalCard from '@/app/(authentication)/components/onboarding/PendingApproval';
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
@@ -18,6 +19,12 @@ export default function DashboardLayout({ children }) {
 
     const { isComplete: isProfileComplete } = useProfileCompletion(!isAdmin);
     const { data: pendingData } = usePendingUsers({ page: 1, limit: 1 }, isAdmin);
+
+    // Customers/Businesses can't access the dashboard until their account
+    // is approved — they only ever see the pending-approval screen here.
+    if (!isAdmin && user && user.status !== 'APPROVED') {
+        return <PendingApprovalCard />;
+    }
 
     const dashboardRoutes = getDashboardRoutes({
         userName: user?.name,

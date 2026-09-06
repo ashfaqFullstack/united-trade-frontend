@@ -128,9 +128,14 @@ api.interceptors.response.use(
             }
         }
 
+
         if (error.response?.status === 401 && isAuthEndpoint) {
             // e.g. refresh-token call itself failed (no valid session at all)
             clearSessionAndRedirect();
+        }
+
+        if (error.response?.status !== 401 && !originalRequest?.skipErrorToast) {
+            toast.error(message);
         }
 
         const message = error.response?.data?.message || 'Something went wrong';

@@ -114,7 +114,7 @@ export default function DashboardHero({ data }) {
                         </p>
 
                         <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl lg:text-[34px]">
-                            {data.title}{user && ` ${user.name}`}
+                            {data.title}
                         </h1>
                     </motion.div>
 

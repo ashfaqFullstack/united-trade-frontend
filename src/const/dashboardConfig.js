@@ -17,27 +17,21 @@ export const sidebarItems = [
         href: '/dashboard',
         icon: FiHome,
     },
-    {
-        label: 'My Trades',
-        href: '/dashboard/trades',
-        icon: FiRepeat,
-    },
-    {
-        label: 'Messages',
-        href: '/dashboard/messages',
-        icon: FiMessageSquare,
-        badge: 3,
-    },
-    {
-        label: 'Profile',
-        href: '/dashboard/profile',
-        icon: FiUser,
-    },
-    {
-        label: 'Settings',
-        href: '/dashboard/settings',
-        icon: FiSettings,
-    },
+    // {
+    //     label: 'My Trades',
+    //     href: '/dashboard',
+    //     icon: FiRepeat,
+    // },
+    // {
+    //     label: 'Profile',
+    //     href: '/dashboard',
+    //     icon: FiUser,
+    // },
+    // {
+    //     label: 'Settings',
+    //     href: '/dashboard',
+    //     icon: FiSettings,
+    // },
 ];
 
 export const getDashboardRoutes = ({ userName, isProfileComplete, isAdmin, pendingCount }) => ({

@@ -34,12 +34,15 @@ export const useLogin = () => {
 
 export const useLogout = () => {
     const clearUser = useAuthStore((state) => state.clearUser);
+    const router = useRouter();
+
     return useMutation({
         mutationFn: logoutUser,
         onSuccess: () => {
             clearUser();
             queryClient.clear();
             toast.success('Logged out successfully');
+            router.push('/');
         },
     });
 };

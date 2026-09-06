@@ -7,11 +7,11 @@ import { FiArrowRight, FiRepeat } from 'react-icons/fi';
 import { sidebarItems } from '@/const/dashboardConfig';
 
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar({ isOpen, onClose }) {
     const pathname = usePathname();
 
     return (
-        <aside className="hidden w-[280px] shrink-0 border-r border-slate-100 bg-white lg:block">
+        <aside className={`fixed inset-y-0 left-0 z-[60] w-[280px] shrink-0 border-r border-slate-100 bg-white transition-transform duration-300 ease-out lg:static lg:z-auto lg:block lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
             <div className="sticky top-0 flex h-screen flex-col px-5 py-6">
 
                 {/* Logo */}
@@ -19,8 +19,6 @@ export default function DashboardSidebar() {
                     href="/"
                     className="mb-10 flex items-center gap-3 px-2"
                 >
-
-
                     <span className="text-[25px] font-extrabold tracking-tight text-slate-900">
                         United Trade
                     </span>
@@ -41,6 +39,7 @@ export default function DashboardSidebar() {
                                 key={item.href}
                                 href={item.href}
                                 className="relative block"
+                                onClick={onClose}
                             >
                                 {isActive && (
                                     <motion.div
