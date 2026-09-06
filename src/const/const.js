@@ -11,6 +11,7 @@ import {
     FiShield,
     FiStar,
     FiMessageCircle,
+    FiLock,
     FiClock,
 } from 'react-icons/fi';
 
@@ -172,11 +173,11 @@ export
             description: 'Build trust through community feedback.',
         },
         {
-            icon: FiMessageCircle,
+            icon: FiLock,
             iconBg: 'bg-orange-100',
             iconColor: 'text-orange-500',
-            title: 'Secure Communication',
-            description: 'Chat and negotiate safely within the platform.',
+            title: 'Trade Protection',
+            description: 'Trade with confidence through a safer platform.',
         },
         {
             icon: FiClock,
@@ -269,4 +270,15 @@ export const productPairs = [
             image: "/assets/piano.png",
         },
     },
+];
+
+export const BUSINESS_CATEGORIES = [
+    'Electronics',
+    'Fashion',
+    'Home & Living',
+    'Food & Grocery',
+    'Health & Beauty',
+    'Automotive',
+    'Services',
+    'Other',
 ];

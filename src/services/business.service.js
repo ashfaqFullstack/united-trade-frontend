@@ -15,8 +15,8 @@ export const getUploadSignature = async () => {
     return res.data;
 };
 
-export const saveBusinessDocuments = async (documents) => {
-    const res = await api.post('/business/documents', { documents });
+export const saveBusinessDocuments = async (payload) => {
+    const res = await api.post('/business/documents', payload);
     return res.data;
 };
 
@@ -36,3 +36,4 @@ export const uploadToCloudinary = async ({ file, signatureData }) => {
     });
     return res.json();
 };
+

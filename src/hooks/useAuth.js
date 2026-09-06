@@ -14,7 +14,7 @@ export const useRegister = () => {
         onSuccess: (data) => {
             setUser(data.user);
             toast.success('Account created successfully!');
-            router.push('/');
+            router.push('/onboarding');
         },
     });
 };

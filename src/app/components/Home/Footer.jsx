@@ -29,7 +29,8 @@ export default function Footer() {
                     <div className="absolute -bottom-32 left-1/2 h-[180px] w-[500px] -translate-x-1/2 rounded-full bg-white/5 blur-3xl" />
                 </div>
 
-                <div className="relative mx-auto flex min-h-[190px] max-w-7xl flex-col items-center justify-center px-5 py-10 text-center sm:min-h-[210px] sm:px-8">
+                <div className="relative mx-auto flex min-h-[190px] max-w-7xl flex-col items-center justify-center px-5 py-10 text-center sm:min-h-[210px] sm:px-8
+                ">
                     <motion.div
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{
@@ -49,7 +50,7 @@ export default function Footer() {
                         </p>
 
                         <Link
-                            href="/register"
+                            href="/auth"
                             className="group mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[10px] font-semibold text-slate-600 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:px-6 sm:py-3 sm:text-[11px]"
                         >
                             Create Your Account
@@ -63,6 +64,7 @@ export default function Footer() {
             {/* =====================================================
                 FOOTER CONTENT
             ====================================================== */}
+
             <section className="bg-white">
                 <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 md:py-10 lg:px-12">
                     <div className="flex flex-col items-center gap-7 lg:flex-row lg:items-start lg:justify-between">

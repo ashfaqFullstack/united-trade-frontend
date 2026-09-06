@@ -88,7 +88,7 @@ export default function Hero() {
                 {/* Right illustration */}
                 <div className="relative flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
                     <div
-                        className="absolute h-64 w-64 rounded-full bg-gradient-to-br from-indigo-400 via-blue-300/60 to-blue-200/30 blur-3xl sm:h-80 sm:w-80 md:h-[420px] md:w-[420px]"
+                        className="absolute h-64 w-64 rounded-full bg-gradient-to-br from-indigo-400 via-blue-300/60 to-blue-200/30 blur-3xl sm:h-80 sm:w-80 md:h-[320px] md:w-[420px]"
                     />
                     {/* YOU HAVE */}
                     <AnimatePresence mode="wait">

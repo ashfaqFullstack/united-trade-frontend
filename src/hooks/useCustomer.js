@@ -23,3 +23,12 @@ export const useUpdateCustomerProfile = () => {
         },
     });
 };
+
+export const useCustomerProfile = (enabled = true) => {
+    return useQuery({
+        queryKey: ['customerProfile'],
+        queryFn: getCustomerProfile,
+        retry: false,
+        enabled : enabled
+    });
+};

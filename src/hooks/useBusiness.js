@@ -6,6 +6,7 @@ import {
     saveBusinessDocuments,
 } from '@/services/business.service';
 import { toast } from 'sonner';
+
 export const useCompleteBusinessProfile = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -15,6 +16,19 @@ export const useCompleteBusinessProfile = () => {
             toast.success('Business profile completed');
         },
     });
+};
+
+export const useBusinessProfile = (enabled = true) => {
+    return useQuery({
+        queryKey: ['businessProfile'],
+        queryFn: getBusinessProfile,
+        retry: false,
+        enabled,
+    });
+};
+
+export const useUploadSignature = () => {
+    return useMutation({ mutationFn: getUploadSignature });
 };
 
 export const useSaveBusinessDocuments = () => {
