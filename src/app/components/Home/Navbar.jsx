@@ -93,7 +93,7 @@ export default function Navbar() {
                         >
                             <Link
                                 href="/auth"
-                                className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
+                                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
                             >
                                 Sign in
                             </Link>
@@ -106,9 +106,9 @@ export default function Navbar() {
                         >
                             <Link
                                 href="/auth"
-                                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-slate-800 hover:shadow-lg"
+                                className="group inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-indigo-700 hover:shadow-lg"
                             >
-                                Join the Marketplace
+                                Join
 
                                 <span className="text-base transition-transform duration-200 group-hover:translate-x-0.5">
                                     →
@@ -188,7 +188,7 @@ export default function Navbar() {
                                             <Link
                                                 href="/auth"
                                                 onClick={() => setIsOpen(false)}
-                                                className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50"
+                                                className="block rounded-full border border-slate-200 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50"
                                             >
                                                 Sign in
                                             </Link>
@@ -203,9 +203,9 @@ export default function Navbar() {
                                             <Link
                                                 href="/auth"
                                                 onClick={() => setIsOpen(false)}
-                                                className="mt-1.5 flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-slate-800 hover:shadow-md"
+                                                className="mt-1.5 flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 hover:shadow-md"
                                             >
-                                                Join the Marketplace
+                                                Join
                                                 <span>→</span>
                                             </Link>
                                         </motion.li>
