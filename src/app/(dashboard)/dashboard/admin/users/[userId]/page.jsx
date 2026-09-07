@@ -5,11 +5,13 @@ import { useParams, useRouter } from 'next/navigation';
 import { FiMail, FiGlobe, FiCheck, FiX, FiArrowLeft, FiFileText } from 'react-icons/fi';
 import { useUserDetails, useApproveUser, useRejectUser } from '@/hooks/useAdmin';
 import ApproveModal from '../../ApprovalModal';
+import ImageModal from '@/app/components/ui/ImageModal';
 
 export default function AdminUserDetailPage() {
     const { userId } = useParams();
     const router = useRouter();
     const [approveModalOpen, setApproveModalOpen] = useState(false);
+    const [selectedDoc, setSelectedDoc] = useState(null);
 
     const { data: user, isLoading } = useUserDetails(userId);
     const { mutate: approve, isPending: approving } = useApproveUser();
@@ -106,20 +108,18 @@ export default function AdminUserDetailPage() {
                         </h3>
                         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                             {profile.documents.map((doc) => (
-
-                                <a key={doc.id}
-                                    href={doc.viewUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="block overflow-hidden rounded-xl border border-slate-200"
+                                <button
+                                    key={doc.id}
+                                    type="button"
+                                    onClick={() => setSelectedDoc(doc)}
+                                    className="block cursor-pointer overflow-hidden rounded-xl border border-slate-200 transition hover:opacity-90"
                                 >
                                     <img src={doc.viewUrl} alt={doc.fileType} className="h-28 w-full object-cover" />
-                                </a>
+                                </button>
                             ))}
                         </div>
                     </div>
-                )
-                }
+                )}
 
                 {
                     user.status === 'PENDING' && (
@@ -151,6 +151,12 @@ export default function AdminUserDetailPage() {
                 onClose={() => setApproveModalOpen(false)}
                 onConfirm={handleApprove}
                 isPending={approving}
+            />
+            <ImageModal
+                open={!!selectedDoc}
+                onClose={() => setSelectedDoc(null)}
+                imageUrl={selectedDoc?.viewUrl}
+                title={selectedDoc?.fileType}
             />
         </div >
     );
