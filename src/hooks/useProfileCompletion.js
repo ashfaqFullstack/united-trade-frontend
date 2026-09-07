@@ -1,6 +1,6 @@
-import { useAuthStore } from '@/store/useAuthStore';
-import { useBusinessProfile } from './useBusiness';
-import { useCustomerProfile } from './useCustomer';
+import { useAuthStore } from "@/store/useAuthStore";
+import { useBusinessProfile } from "./useBusiness";
+import { useCustomerProfile } from "./useCustomer";
 
 export const useProfileCompletion = (enabled = true) => {
     const user = useAuthStore((state) => state.user);

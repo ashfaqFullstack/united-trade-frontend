@@ -8,12 +8,10 @@ import {
 import { toast } from 'sonner';
 
 export const useCompleteBusinessProfile = () => {
-    const queryClient = useQueryClient();
     return useMutation({
         mutationFn: completeBusinessProfile,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['businessProfile'] });
-            toast.success('Business profile completed');
+            toast.success('Business details saved');
         },
     });
 };
