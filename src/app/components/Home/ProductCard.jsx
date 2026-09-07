@@ -15,7 +15,8 @@ export default function ProductCard({ label, name, image }) {
                 duration: 0.25,
                 ease: "easeOut",
             }}
-            className="group relative w-[145px] overflow-hidden rounded-[24px] border border-white/80 bg-white/90 p-2 shadow-[0_15px_45px_rgba(50,70,130,0.12)] backdrop-blur-xl sm:w-[165px] sm:p-2.5 md:w-[175px]"
+            // className="group relative w-[145px] overflow-hidden rounded-[24px] border border-white/80 bg-white/90 p-2 shadow-[0_15px_45px_rgba(50,70,130,0.12)] backdrop-blur-xl sm:w-[165px] sm:p-2.5 md:w-[175px]"
+            className="group relative w-[80vw] overflow-hidden rounded-[24px] border border-white/80 bg-white/90 p-2 shadow-[0_15px_45px_rgba(50,70,130,0.12)] backdrop-blur-xl sm:w-[165px] sm:p-2.5 md:w-[175px]"
         >
             {/* Soft card glow */}
             <div
