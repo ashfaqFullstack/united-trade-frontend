@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import TextInput from './TextInput';
 import SelectInput from './SelectInput';
 import { BUSINESS_CATEGORIES } from '@/const/const';
+import { useCompleteBusinessProfile } from '@/hooks/useBusiness';
 
 const schema = z.object({
     businessName: z.string().min(1, 'Business name is required'),
