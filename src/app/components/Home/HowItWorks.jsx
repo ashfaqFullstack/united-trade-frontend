@@ -1,5 +1,5 @@
 import { Work_steps } from "@/const/const";
-import { FaSuitcaseRolling, FaSearch, FaHandshake, FaArrowRight } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 
 
@@ -36,7 +36,7 @@ export default function HowItWorks() {
                                     <h3 className="mt-4 text-base font-semibold text-slate-900">
                                         {step.title}
                                     </h3>
-                                    <p className="mt-2 max-w-[220px] text-sm leading-relaxed text-slate-500">
+                                    <p className="text-center md:text-start  mt-2 max-w-[220px] text-sm leading-relaxed text-slate-500">
                                         {step.description}
                                     </p>
                                 </div>
