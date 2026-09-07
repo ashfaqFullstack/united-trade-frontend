@@ -11,6 +11,7 @@ import {
     LuLock,
     LuArrowLeft,
     LuArrowRight,
+    LuLoaderCircle,
 } from 'react-icons/lu';
 
 import FormField from './FormField';
@@ -163,7 +164,11 @@ export default function RegisterForm() {
                             disabled={isPending}
                             className="group cursor-pointer flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:opacity-90 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
                         >
-                            {isPending ? 'Creating account...' : 'Create Account'}
+                            {isPending ? (
+                                <LuLoaderCircle className="h-5 w-5 animate-spin" />
+                            ) : (
+                                'Register'
+                            )}
                             {!isPending && <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
                         </button>
                     </motion.div>

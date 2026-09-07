@@ -9,6 +9,7 @@ import SocialButton from './SocialButton';
 import { useLogin } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import { LuArrowRight, LuLoaderCircle } from 'react-icons/lu';
 
 const loginSchema = z.object({
     email: z.string().min(1, 'Email is required').email('Enter a valid email address'),
@@ -66,9 +67,14 @@ export default function LoginForm() {
             <button
                 type="submit"
                 disabled={isPending}
-                className="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 disabled:opacity-60"
+                className="flex w-full group cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
             >
-                {isPending ? 'Logging in...' : 'Login →'}
+                {isPending ? (
+                    <LuLoaderCircle className="h-5 w-5 animate-spin" />
+                ) : (
+                    'Login'
+                )}
+                {!isPending && <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
             </button>
 
         </form>
