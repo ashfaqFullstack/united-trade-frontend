@@ -55,7 +55,7 @@ export default function BusinessDetailsStep({ onNext }) {
             <TextInput
                 label="Phone Number"
                 required
-                placeholder="e.g. +[country code] [phone number]"
+                placeholder="e.g. +country code phone number"
                 error={errors.phone?.message}
                 {...register('phone')}
             />

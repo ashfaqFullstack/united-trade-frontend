@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { productPairs } from "@/const/const";
 import ProductCard from "./ProductCard";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const container = {
     hidden: {},
@@ -24,6 +25,8 @@ const fadeUp = {
 
 export default function Hero() {
     const [productIndex, setProductIndex] = useState(0);
+    const user = useAuthStore((state) => state.user);
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -71,13 +74,15 @@ export default function Hero() {
                         variants={fadeUp}
                         className="mt-8 flex flex-wrap items-center justify-center gap-4 md:justify-start"
                     >
-                        <Link
-                            href="/auth"
-                            className="flex cursor-pointer items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 hover:scale-105 text-sm font-medium text-white transition-all duration-300 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600"
-                        >
-                            Start Trading
-                            <ArrowRightIcon className="h-4 w-4" />
-                        </Link>
+                        {!user &&
+                            <Link
+                                href="/auth"
+                                className="flex cursor-pointer items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 hover:scale-105 text-sm font-medium text-white transition-all duration-300 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600"
+                            >
+                                Start Trading
+                                <ArrowRightIcon className="h-4 w-4" />
+                            </Link>
+                        }
                         <button className="flex cursor-pointer items-center  gap-2 rounded-full border border-slate-200 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50">
                             <PlayIcon className="h-4 w-4 text-indigo-600" />
                             How It Works

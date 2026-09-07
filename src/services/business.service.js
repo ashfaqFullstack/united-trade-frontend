@@ -6,7 +6,7 @@ export const completeBusinessProfile = async (data) => {
 };
 
 export const getBusinessProfile = async () => {
-    const res = await api.get('/business/profile');
+    const res = await api.get('/business/profile', { skipErrorToast: true });
     return res.data;
 };
 

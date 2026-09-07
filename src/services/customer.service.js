@@ -6,7 +6,7 @@ export const completeCustomerProfile = async (data) => {
 };
 
 export const getCustomerProfile = async () => {
-    const res = await api.get('/customer/profile');
+    const res = await api.get('/customer/profile', { skipErrorToast: true });
     return res.data;
 };
 

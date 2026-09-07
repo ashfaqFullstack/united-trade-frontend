@@ -6,8 +6,11 @@ import {
     BsArrowRight
 } from 'react-icons/bs';
 import { footerLinks, socialLinks } from '@/const/const';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export default function Footer() {
+    const user = useAuthStore((state) => state.user);
+
 
 
     return (
@@ -49,14 +52,17 @@ export default function Footer() {
                             new purpose.
                         </p>
 
-                        <Link
-                            href="/auth"
-                            className="group mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[10px] font-semibold text-slate-600 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:px-6 sm:py-3 sm:text-[11px]"
-                        >
-                            Create Your Account
+                        {
+                            !user &&
+                            <Link
+                                href="/auth"
+                                className="group mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[10px] font-semibold text-slate-600 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:px-6 sm:py-3 sm:text-[11px]"
+                            >
+                                Create Your Account
 
-                            <BsArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                        </Link>
+                                <BsArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                            </Link>
+                        }
                     </motion.div>
                 </div>
             </section>
