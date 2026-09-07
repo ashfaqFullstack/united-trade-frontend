@@ -11,6 +11,7 @@ import { useCompleteCustomerProfile } from '@/hooks/useCustomer';
 
 const schema = z.object({
     phone: z.string().min(1, 'Phone number is required'),
+    country: z.string().min(1, 'Country is required'),
     city: z.string().min(1, 'City is required'),
     address: z.string().optional(),
 });
@@ -36,12 +37,19 @@ export default function CustomerDetailsStep({ onNext }) {
             <TextInput
                 label="Phone Number"
                 required
-                placeholder="0300 1234567"
+                placeholder="e.g. +[country code] [phone number]"
                 error={errors.phone?.message}
                 {...register('phone')}
             />
-            <TextInput label="City" required placeholder="Faisalabad" error={errors.city?.message} {...register('city')} />
-            <TextInput label="Address" placeholder="House 12, Street 5" {...register('address')} />
+            <TextInput
+                label="Country"
+                required
+                placeholder="e.g. United States"
+                error={errors.country?.message}
+                {...register('country')}
+            />
+            <TextInput label="City" required placeholder="e.g. New York" error={errors.city?.message} {...register('city')} />
+            <TextInput label="Address" placeholder="e.g. 123 Market Street" {...register('address')} />
 
             <button
                 type="submit"
