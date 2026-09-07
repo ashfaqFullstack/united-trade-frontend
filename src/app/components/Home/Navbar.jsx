@@ -58,27 +58,6 @@ export default function Navbar() {
                         </li>
                     ))}
                 </ul>
-
-                {/* Right actions */}
-                {user ? (
-                    <UserMenu />
-                ) : (
-                    <div className="hidden items-center gap-3 md:flex">
-                        <Link href="/auth" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">
-                            Log in
-                        </Link>
-
-                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                            <Link
-                                href="/auth"
-                                className="rounded-full bg-gradient-to-r from-indigo-600 to-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-sm shadow-indigo-600/20 transition-shadow hover:shadow-md"
-                            >
-                                Start Trading Free
-                            </Link>
-                        </motion.div>
-                    </div>
-                )}
-
                 {/* Animated hamburger / close icon */}
                 <button
                     onClick={() => setIsOpen((prev) => !prev)}
@@ -101,6 +80,47 @@ export default function Navbar() {
                         transition={{ duration: 0.25, ease: "easeInOut" }}
                     />
                 </button>
+
+                {/* Right actions */}
+                {user ? (
+                    <UserMenu />
+                ) : (
+                    <div className="hidden items-center gap-2.5 md:flex">
+                        {/* Sign In */}
+                        <motion.div
+                            whileHover={{ y: -1 }}
+                            whileTap={{ scale: 0.97 }}
+                        >
+                            <Link
+                                href="/auth"
+                                className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
+                            >
+                                Sign in
+                            </Link>
+                        </motion.div>
+
+                        {/* Join Marketplace */}
+                        <motion.div
+                            whileHover={{ y: -1 }}
+                            whileTap={{ scale: 0.97 }}
+                        >
+                            <Link
+                                href="/auth"
+                                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-slate-800 hover:shadow-lg"
+                            >
+                                Join the Marketplace
+
+                                <span className="text-base transition-transform duration-200 group-hover:translate-x-0.5">
+                                    →
+                                </span>
+                            </Link>
+                        </motion.div>
+                    </div>
+                )}
+
+
+
+
             </nav>
 
             {/* Mobile menu */}
@@ -159,22 +179,34 @@ export default function Navbar() {
                                     <UserMenu />
                                 ) : (
                                     <>
-                                        <motion.li variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0 } }}>
+                                        <motion.li
+                                            variants={{
+                                                hidden: { opacity: 0, x: -12 },
+                                                show: { opacity: 1, x: 0 },
+                                            }}
+                                        >
                                             <Link
                                                 href="/auth"
                                                 onClick={() => setIsOpen(false)}
-                                                className="block rounded-lg px-4 py-2.5 text-center text-sm font-medium text-slate-600 hover:bg-slate-50"
+                                                className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50"
                                             >
-                                                Log in
+                                                Sign in
                                             </Link>
                                         </motion.li>
-                                        <motion.li variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0 } }}>
+
+                                        <motion.li
+                                            variants={{
+                                                hidden: { opacity: 0, x: -12 },
+                                                show: { opacity: 1, x: 0 },
+                                            }}
+                                        >
                                             <Link
                                                 href="/auth"
                                                 onClick={() => setIsOpen(false)}
-                                                className="mt-1 block rounded-full bg-gradient-to-r from-indigo-600 to-blue-600 px-4 py-2.5 text-center text-sm font-semibold text-white"
+                                                className="mt-1.5 flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-slate-800 hover:shadow-md"
                                             >
-                                                Start Trading Free
+                                                Join the Marketplace
+                                                <span>→</span>
                                             </Link>
                                         </motion.li>
                                     </>
