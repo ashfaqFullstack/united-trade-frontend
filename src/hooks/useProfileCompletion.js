@@ -12,14 +12,22 @@ export const useProfileCompletion = (enabled = true) => {
     const customerQuery = useCustomerProfile(enabled && !!user && isCustomer);
 
     if (!enabled || !user || isAdmin) {
-        // Admins have no profile step and are always considered "complete"
         return { isComplete: isAdmin, isLoading: false };
     }
 
-    const query = isBusiness ? businessQuery : customerQuery;
+    if (isBusiness) {
+        // A business isn't "complete" until profile details AND
+        // at least one verification document are uploaded.
+        const hasProfile = !!businessQuery.data;
+        const hasDocuments = (businessQuery.data?.documents?.length || 0) > 0;
+        return {
+            isComplete: hasProfile && hasDocuments,
+            isLoading: businessQuery.isLoading,
+        };
+    }
 
     return {
-        isComplete: !!query.data,
-        isLoading: query.isLoading,
+        isComplete: !!customerQuery.data,
+        isLoading: customerQuery.isLoading,
     };
 };
