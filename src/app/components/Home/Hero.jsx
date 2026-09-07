@@ -93,7 +93,7 @@ export default function Hero() {
                 {/* Right illustration */}
                 <div className="relative flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
                     <div
-                        className="absolute h-64 w-64 rounded-full bg-gradient-to-br from-indigo-400 via-blue-300/60 to-blue-200/30 blur-3xl sm:h-80 sm:w-80 md:h-[320px] md:w-[420px]"
+                        className="absolute -z-0 h-64 w-64 rounded-full bg-gradient-to-br from-indigo-400 via-blue-300/60 to-blue-200/30 blur-3xl sm:h-80 sm:w-80 md:h-[320px] md:w-[420px]"
                     />
                     {/* YOU HAVE */}
                     <AnimatePresence mode="wait">
@@ -128,27 +128,13 @@ export default function Hero() {
                     </AnimatePresence>
 
                     {/* SWAP ICON */}
-                    <motion.span
-                        className="rounded-full bg-white p-2.5 shadow-md sm:p-3"
-                        initial={{ opacity: 0, scale: 0.6 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                            duration: 0.5,
-                            delay: 0.7,
-                        }}
-                    >
-                        <motion.span
-
-                            transition={{
-                                duration: 2.4,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                            }}
+                    <span className="relative z-20 rounded-full bg-white p-2.5 shadow-md sm:p-3">
+                        <span
                             className="block rotate-90 sm:rotate-0"
                         >
                             <SwapIcon className="h-5 w-5 text-indigo-500 sm:h-6 sm:w-6" />
-                        </motion.span>
-                    </motion.span>
+                        </span>
+                    </span>
 
                     {/* YOU WANT */}
                     <AnimatePresence mode="wait">
