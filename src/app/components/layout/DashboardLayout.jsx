@@ -40,7 +40,7 @@ export default function DashboardLayout({ children }) {
     const pageData = dashboardRoutes[routeKey];
 
     return (
-        <div className="min-h-screen relative max-w-7xl mx-auto bg-[#f8fafc]">
+        <div className="min-h-screen flex relative  bg-[#f8fafc]">
             <DashboardSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
             {/* Mobile backdrop */}
@@ -51,7 +51,7 @@ export default function DashboardLayout({ children }) {
                 />
             )}
 
-            <div className="lg:pl-[280px]">
+            <div className="">
                 <DashboardHeader
                     isSidebarOpen={isSidebarOpen}
                     onMenuClick={() => setIsSidebarOpen((prev) => !prev)}
