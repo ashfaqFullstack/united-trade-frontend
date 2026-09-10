@@ -40,7 +40,7 @@ export default function DashboardLayout({ children }) {
     const pageData = dashboardRoutes[routeKey];
 
     return (
-        <div className="min-h-screen flex relative  bg-[#f8fafc]">
+        <div className="min-h-screen flex mx-auto relative  bg-[#f8fafc]">
             <DashboardSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
             {/* Mobile backdrop */}
