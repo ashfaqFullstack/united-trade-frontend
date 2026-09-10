@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuthStore } from "@/store/useAuthStore";
-import UserMenu from "../layout/UserMenu";
+import UserMenu from "../ui/UserMenu";
+import Image from "next/image";
 
 const navLinks = [
     { label: "Home", href: "/" },
@@ -28,10 +29,11 @@ export default function Navbar() {
             <nav className="mx-auto flex max-w-7xl items-center justify-between px-7 py-4">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 text-white">
+                    <Image src="/assets/United-Logo.png" alt="United Trade - Barter System" height={110} width={110} />
+                    {/* <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 text-white">
                         <ArrowsIcon className="h-4 w-4" />
-                    </span>
-                    <span className="text-xl font-semibold text-slate-900">United Trade</span>
+                    </span> */}
+                    {/* <span className="text-xl font-semibold text-slate-900">United Trade</span> */}
                 </Link>
 
                 {/* Desktop links with sliding active pill */}

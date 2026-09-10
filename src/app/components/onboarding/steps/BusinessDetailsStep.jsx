@@ -6,8 +6,8 @@ import { z } from 'zod';
 import { LuArrowRight, LuLoaderCircle } from 'react-icons/lu';
 import { toast } from 'sonner';
 
-import TextInput from './TextInput';
-import SelectInput from './SelectInput';
+import TextInput from '../../ui/TextInput';
+import SelectInput from '../../ui/SelectInput';
 import { useCompleteBusinessProfile } from '@/hooks/useBusiness';
 import { BUSINESS_CATEGORIES } from '@/const/const';
 

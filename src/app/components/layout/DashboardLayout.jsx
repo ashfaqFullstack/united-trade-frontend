@@ -2,15 +2,15 @@
 
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import DashboardSidebar from './Sidebar';
-import DashboardHeader from './Header';
-import DashboardHero from './Hero';
-import DashboardStats from './Stats';
+import DashboardSidebar from '../Dashboard/Sidebar';
+import DashboardHeader from '../Dashboard/Header';
+import DashboardHero from '../Dashboard/Hero';
+import DashboardStats from '../Dashboard/Stats';
 import { getDashboardRoutes } from '@/const/dashboardConfig';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { usePendingUsers } from '@/hooks/useAdmin';
-import PendingApprovalCard from '@/app/(authentication)/components/onboarding/PendingApproval';
+import PendingApprovalCard from '@/app/components/onboarding/PendingApproval';
 import { useState } from 'react';
 
 export default function DashboardLayout({ children }) {

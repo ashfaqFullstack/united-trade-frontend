@@ -7,6 +7,7 @@ import {
 } from 'react-icons/bs';
 import { footerLinks, socialLinks } from '@/const/const';
 import { useAuthStore } from '@/store/useAuthStore';
+import Image from 'next/image';
 
 export default function Footer() {
     const user = useAuthStore((state) => state.user);
@@ -80,26 +81,9 @@ export default function Footer() {
                                 href="/"
                                 className="group flex items-center gap-2"
                             >
-                                {/* Logo mark */}
-                                <div className="relative flex h-7 w-7 items-center justify-center">
-                                    <div className="absolute h-5 w-5 rotate-45 rounded-[5px] bg-gradient-to-br from-blue-400 to-indigo-500 transition-transform duration-300 group-hover:rotate-[55deg]" />
-
-                                    <div className="relative z-10 text-white">
-                                        <BsArrowRight
-                                            className="h-4 w-4 -rotate-45"
-                                            strokeWidth={1.5}
-                                        />
-                                    </div>
-                                </div>
-
-                                <span className="text-lg font-bold tracking-tight text-[#142b50]">
-                                    United Trade
-                                </span>
+                                <Image src="/assets/United-Logo.png" alt="United Trade - Barter System" height={130} width={130} />
                             </Link>
 
-                            <p className="mt-0.5 text-[8px] font-medium text-slate-400">
-                                More value. Less waste.
-                            </p>
                         </div>
 
                         {/* NAVIGATION */}
@@ -137,7 +121,7 @@ export default function Footer() {
                     {/* COPYRIGHT */}
                     <div className="mt-7 border-t border-slate-100 pt-5 text-center">
                         <p className="font-medium text-slate-400 text-sm">
-                            © 2026 United Trade. All rights reserved.
+                            © 2026 United Trade. All rights reserved by Hadad Empire.
                         </p>
                     </div>
                 </div>

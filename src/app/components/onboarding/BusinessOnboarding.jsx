@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import OnboardingLayout from './OnboardingLayout';
-import BusinessDetailsStep from './BusinessDetailsStep';
-import ContactDetailsStep from './ContactDetailsStep';
-import MembershipStep from './MembershipStep';
-import BusinessDocumentsStep from './BusinessDocumentStep';
+import OnboardingLayout from '../layout/OnboardingLayout';
+import BusinessDetailsStep from './steps/BusinessDetailsStep';
+import ContactDetailsStep from './steps/ContactDetailsStep';
+import MembershipStep from './steps/MembershipStep';
+import BusinessDocumentsStep from './steps/BusinessDocumentStep';
 import SuccessStep from './SuccessStep';
 
 const steps = [

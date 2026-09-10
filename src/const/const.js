@@ -13,6 +13,12 @@ import {
     FiMessageCircle,
     FiLock,
     FiClock,
+    FiTool,
+    FiCamera,
+    FiPenTool,
+    FiCode,
+    FiBookOpen,
+    FiScissors,
 } from 'react-icons/fi';
 
 
@@ -292,4 +298,15 @@ export const steps = [
     { title: 'Your Details', subtitle: 'Tell us a little about yourself so others can connect with you.' },
     { title: 'Membership Package', subtitle: "Choose the trade limit tier you'd like to apply for." },
     { title: "You're All Set!", subtitle: null },
+];
+
+export const TIER_META = {
+    STANDARD: { label: 'Standard', range: '$2,000 – $3,000', accent: 'from-slate-500 to-slate-700' },
+    GOLD: { label: 'Gold', range: '$10,000 – $15,000', accent: 'from-amber-500 to-orange-600' },
+    PLATINUM: { label: 'Platinum', range: '$25,000 – $50,000', accent: 'from-indigo-500 to-purple-600' },
+};
+
+export const serviceImages = [
+    '/assets/services/service.png',
+    '/assets/services/services.png',
 ];

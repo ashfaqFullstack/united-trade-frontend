@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Trade System",
+  title: "United Trade | Hadad Empire - Barter System",
   description: "",
 };
 

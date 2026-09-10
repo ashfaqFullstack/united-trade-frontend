@@ -1,6 +1,6 @@
 'use client';
 
-import UserMenu from '../layout/UserMenu';
+import UserMenu from '../ui/UserMenu';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 export default function DashboardHeader({ isSidebarOpen, onMenuClick }) {

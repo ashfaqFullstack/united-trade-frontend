@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { LuArrowRight, LuLoaderCircle } from 'react-icons/lu';
 import { toast } from 'sonner';
 
-import TextInput from './TextInput';
+import TextInput from '../../ui/TextInput';
 import { useCompleteBusinessProfile } from '@/hooks/useBusiness';
 
 const schema = z.object({

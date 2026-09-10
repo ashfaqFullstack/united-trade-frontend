@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import OnboardingLayout from './OnboardingLayout';
-import CustomerDetailsStep from './CustomerDetailsStep';
+import OnboardingLayout from '../layout/OnboardingLayout';
+import CustomerDetailsStep from './steps/CustomerDetailsStep';
 import SuccessStep from './SuccessStep';
 import { steps } from '@/const/const';
-import CustomerMembershipStep from './CustomerMemberShipStep';
+import CustomerMembershipStep from './steps/CustomerMemberShipStep';
 
 export default function CustomerOnboarding() {
     const [step, setStep] = useState(1);
