@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FiClock, FiMail, FiGlobe, FiChevronRight } from 'react-icons/fi';
 import { usePendingUsers } from '@/hooks/useAdmin';
 import Pagination from '../../layout/Pagination';
+import Loading from '../../ui/Loading';
 
 export default function AdminPendingUsers() {
     const [page, setPage] = useState(1);
@@ -14,9 +15,7 @@ export default function AdminPendingUsers() {
 
     if (isLoading) {
         return (
-            <div className="rounded-2xl border border-slate-100 bg-white p-8 text-center text-sm text-slate-400">
-                Loading pending users...
-            </div>
+            <Loading />
         );
     }
 

@@ -11,13 +11,13 @@ export default function DashboardHeader({ isSidebarOpen, onMenuClick }) {
                     type="button"
                     onClick={onMenuClick}
                     aria-label={isSidebarOpen ? 'Close navigation menu' : 'Open navigation menu'}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-100 lg:hidden"
+                    className="inline-flex cursor-pointer h-10 w-10 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-100 lg:hidden"
                 >
                     {isSidebarOpen ? <FiX className="h-5 w-5" /> : <FiMenu className="h-5 w-5" />}
                 </button>
 
                 {/* Right */}
-                <div className="ml-auto flex items-end justify-end gap-4 sm:gap-6">
+                <div className="ml-auto  flex items-end justify-end gap-4 sm:gap-6">
                     {/* User */}
                     <UserMenu />
                 </div>

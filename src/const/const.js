@@ -282,3 +282,14 @@ export const BUSINESS_CATEGORIES = [
     'Services',
     'Other',
 ];
+
+export const DOCUMENT_LABELS = {
+    PHOTO_ID: 'Photo ID',
+    PROOF_OF_ADDRESS: 'Proof of Address',
+};
+
+export const steps = [
+    { title: 'Your Details', subtitle: 'Tell us a little about yourself so others can connect with you.' },
+    { title: 'Membership Package', subtitle: "Choose the trade limit tier you'd like to apply for." },
+    { title: "You're All Set!", subtitle: null },
+];

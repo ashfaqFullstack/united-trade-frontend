@@ -16,18 +16,17 @@ export const useProfileCompletion = (enabled = true) => {
     }
 
     if (isBusiness) {
-        // A business isn't "complete" until profile details AND
-        // at least one verification document are uploaded.
         const hasProfile = !!businessQuery.data;
-        const hasDocuments = (businessQuery.data?.documents?.length || 0) > 0;
+        const docs = businessQuery.data?.documents || [];
+        const hasBothDocs = docs.some((d) => d.fileType === 'PHOTO_ID') && docs.some((d) => d.fileType === 'PROOF_OF_ADDRESS');
         return {
-            isComplete: hasProfile && hasDocuments,
+            isComplete: hasProfile && hasBothDocs,
             isLoading: businessQuery.isLoading,
         };
     }
 
     return {
-        isComplete: !!customerQuery.data,
+        isComplete: !!customerQuery.data && !!customerQuery.data.membershipTier,
         isLoading: customerQuery.isLoading,
     };
 };

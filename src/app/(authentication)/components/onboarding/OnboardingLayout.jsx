@@ -1,5 +1,6 @@
 'use client';
 
+import BackButton from '@/app/components/ui/BackButton';
 import { motion } from 'framer-motion';
 import { LuArrowLeft, LuInfinity } from 'react-icons/lu';
 
@@ -28,19 +29,16 @@ export default function OnboardingLayout({ step, totalSteps, title, subtitle, on
                     />
                 </div>
 
-                {onBack && (
-                    <button
-                        type="button"
-                        onClick={onBack}
-                        className="mb-4 inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-700"
-                    >
-                        <LuArrowLeft className="h-4 w-4" />
-                        Back
-                    </button>
-                )}
 
-                <h2 className="text-xl font-bold text-slate-900">{title}</h2>
-                {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
+                <div className="flex items-center justify-between" >
+                    <div>
+                        <h2 className="text-xl font-bold text-slate-900">{title}</h2>
+                        {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
+                    </div>
+                    {onBack && (
+                        <BackButton handleBack={onBack} titl="Back" />
+                    )}
+                </div>
 
                 <div className="mt-6">{children}</div>
             </div>

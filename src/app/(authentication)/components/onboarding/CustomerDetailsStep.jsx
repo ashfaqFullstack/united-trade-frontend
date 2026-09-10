@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { LuArrowRight } from 'react-icons/lu';
+import { LuArrowRight, LuLoaderCircle } from 'react-icons/lu';
 import { toast } from 'sonner';
 
 import TextInput from './TextInput';
@@ -37,7 +37,7 @@ export default function CustomerDetailsStep({ onNext }) {
             <TextInput
                 label="Phone Number"
                 required
-                placeholder="e.g. +country codephone number"
+                placeholder="e.g. +country code phone number"
                 error={errors.phone?.message}
                 {...register('phone')}
             />
@@ -56,7 +56,9 @@ export default function CustomerDetailsStep({ onNext }) {
                 disabled={isPending}
                 className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 disabled:opacity-60"
             >
-                {isPending ? 'Saving...' : 'Continue'}
+                {isPending ?
+                    <LuLoaderCircle className="h-5 w-5 animate-spin" />
+                    : 'Continue'}
                 {!isPending && <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
             </button>
         </form>

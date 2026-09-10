@@ -6,8 +6,8 @@ export const useCompleteCustomerProfile = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: completeCustomerProfile,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['customerProfile'] });
+        onSuccess: (data) => {
+            queryClient.setQueryData(['customerProfile'], data);
             toast.success('Profile completed successfully');
         },
     });
@@ -29,6 +29,6 @@ export const useCustomerProfile = (enabled = true) => {
         queryKey: ['customerProfile'],
         queryFn: getCustomerProfile,
         retry: false,
-        enabled : enabled
+        enabled: enabled
     });
 };

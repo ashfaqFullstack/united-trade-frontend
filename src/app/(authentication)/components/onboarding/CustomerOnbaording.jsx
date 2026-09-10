@@ -5,17 +5,20 @@ import { AnimatePresence, motion } from 'framer-motion';
 import OnboardingLayout from './OnboardingLayout';
 import CustomerDetailsStep from './CustomerDetailsStep';
 import SuccessStep from './SuccessStep';
-
-const steps = [
-    { title: 'Your Details', subtitle: 'Tell us a little about yourself so others can connect with you.' },
-    { title: "You're All Set!", subtitle: null },
-];
+import { steps } from '@/const/const';
+import CustomerMembershipStep from './CustomerMemberShipStep';
 
 export default function CustomerOnboarding() {
     const [step, setStep] = useState(1);
 
     return (
-        <OnboardingLayout step={step} totalSteps={steps.length} title={steps[step - 1].title} subtitle={steps[step - 1].subtitle}>
+        <OnboardingLayout
+            step={step}
+            totalSteps={steps.length}
+            title={steps[step - 1].title}
+            subtitle={steps[step - 1].subtitle}
+            onBack={step > 1 && step < steps.length ? () => setStep((s) => s - 1) : null}
+        >
             <AnimatePresence mode="wait">
                 <motion.div
                     key={step}
@@ -25,7 +28,8 @@ export default function CustomerOnboarding() {
                     transition={{ duration: 0.2 }}
                 >
                     {step === 1 && <CustomerDetailsStep onNext={() => setStep(2)} />}
-                    {step === 2 && <SuccessStep />}
+                    {step === 2 && <CustomerMembershipStep onNext={() => setStep(3)} />}
+                    {step === 3 && <SuccessStep />}
                 </motion.div>
             </AnimatePresence>
         </OnboardingLayout>

@@ -11,11 +11,14 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { usePendingUsers } from '@/hooks/useAdmin';
 import PendingApprovalCard from '@/app/(authentication)/components/onboarding/PendingApproval';
+import { useState } from 'react';
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
     const user = useAuthStore((state) => state.user);
     const isAdmin = user?.role === 'ADMIN';
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
     const { isComplete: isProfileComplete } = useProfileCompletion(!isAdmin);
     const { data: pendingData } = usePendingUsers({ page: 1, limit: 1 }, isAdmin);
@@ -37,13 +40,22 @@ export default function DashboardLayout({ children }) {
     const pageData = dashboardRoutes[routeKey];
 
     return (
-        <div className="min-h-screen bg-[#f8fafc]">
-            <div className="fixed inset-y-0 left-0 z-40 hidden lg:block">
-                <DashboardSidebar />
-            </div>
+        <div className="min-h-screen relative max-w-7xl mx-auto bg-[#f8fafc]">
+            <DashboardSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+
+            {/* Mobile backdrop */}
+            {isSidebarOpen && (
+                <div
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="fixed inset-0 z-[55] bg-slate-900/40 lg:hidden"
+                />
+            )}
 
             <div className="lg:pl-[280px]">
-                <DashboardHeader />
+                <DashboardHeader
+                    isSidebarOpen={isSidebarOpen}
+                    onMenuClick={() => setIsSidebarOpen((prev) => !prev)}
+                />
 
                 <main className="px-4 py-5 sm:px-6 lg:px-8 lg:py-7">
                     <DashboardHero key={routeKey} data={pageData} />

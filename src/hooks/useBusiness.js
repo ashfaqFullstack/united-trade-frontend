@@ -8,9 +8,11 @@ import {
 import { toast } from 'sonner';
 
 export const useCompleteBusinessProfile = () => {
+    const queryClient = useQueryClient();
     return useMutation({
         mutationFn: completeBusinessProfile,
-        onSuccess: () => {
+        onSuccess: (data) => {
+            queryClient.setQueryData(['businessProfile'], data);
             toast.success('Business details saved');
         },
     });
@@ -29,12 +31,13 @@ export const useUploadSignature = () => {
     return useMutation({ mutationFn: getUploadSignature });
 };
 
+
 export const useSaveBusinessDocuments = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: saveBusinessDocuments,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['businessProfile'] });
+        onSuccess: (data) => {
+            queryClient.setQueryData(['businessProfile'], (old) => ({ ...old, documents: data }));
             toast.success('Documents uploaded successfully');
         },
     });
