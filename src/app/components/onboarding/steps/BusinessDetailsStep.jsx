@@ -40,14 +40,14 @@ export default function BusinessDetailsStep({ onNext }) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <TextInput label="Business Name" required placeholder="e.g. Ali Traders" error={errors.businessName?.message} {...register('businessName')} />
+            <TextInput label="Business Name" required placeholder="Example Company" error={errors.businessName?.message} {...register('businessName')} />
             <TextInput label="Trading Name (if different)" placeholder="Optional" {...register('tradingName')} />
             <TextInput label="Business Registration Number" placeholder="Optional" {...register('businessRegistrationNumber')} />
             <SelectInput label="Business Category" required options={BUSINESS_CATEGORIES} error={errors.category?.message} {...register('category')} />
-            <TextInput label="Country" required placeholder="Pakistan" error={errors.country?.message} {...register('country')} />
+            <TextInput label="Country" required placeholder="United States" error={errors.country?.message} {...register('country')} />
             <TextInput label="Website" placeholder="https://yourbusiness.com" {...register('website')} />
-            <TextInput label="City" required placeholder="Faisalabad" error={errors.city?.message} {...register('city')} />
-            <TextInput label="Address" placeholder="Main Market, Street 5" {...register('address')} />
+            <TextInput label="City" required placeholder="New York" error={errors.city?.message} {...register('city')} />
+            <TextInput label="Address" placeholder="Down Town, Street 5" {...register('address')} />
 
             <button type="submit" disabled={isPending} className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 disabled:opacity-60">
                 {isPending ?

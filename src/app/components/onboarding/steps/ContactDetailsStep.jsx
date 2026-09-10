@@ -34,7 +34,7 @@ export default function ContactDetailsStep({ onNext }) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <TextInput label="Phone Number" required placeholder="0300 1234567" error={errors.phone?.message} {...register('phone')} />
+            <TextInput label="Phone Number" required placeholder="99 1234567" error={errors.phone?.message} {...register('phone')} />
 
             <div className="border-t border-slate-100 pt-4">
                 <p className="mb-3 text-xs font-medium text-slate-400">Secondary Contact (Optional)</p>
