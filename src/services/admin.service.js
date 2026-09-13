@@ -10,8 +10,8 @@ export const approveUser = async ({ userId, creditLimit }) => {
     return res.data;
 };
 
-export const rejectUser = async (userId) => {
-    const res = await api.patch(`/admin/users/${userId}/reject`);
+export const rejectUser = async ({ userId, reason }) => {
+    const res = await api.patch(`/admin/users/${userId}/reject`, { reason });
     return res.data;
 };
 

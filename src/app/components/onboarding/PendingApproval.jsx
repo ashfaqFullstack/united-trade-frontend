@@ -46,6 +46,13 @@ export default function PendingApprovalCard() {
                     </div>
                 )}
 
+                {isRejected && user?.rejectionReason && (
+                    <div className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-left text-sm text-red-600">
+                        <span className="font-semibold">Reason: </span>
+                        {user.rejectionReason}
+                    </div>
+                )}
+
                 <Link
                     href="/"
                     className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90"

@@ -22,11 +22,13 @@ import BackButton from '@/app/components/ui/BackButton';
 import Loading from '@/app/components/ui/Loading';
 import DetailItem from '@/app/components/ui/DetailItem';
 import { DOCUMENT_LABELS, TIER_META } from '@/const/const';
+import RejectModal from './Modals/RejectModal';
 
 export default function UserDetailView({ userId }) {
     const router = useRouter();
     const [approveModalOpen, setApproveModalOpen] = useState(false);
     const [selectedDoc, setSelectedDoc] = useState(null);
+    const [rejectModalOpen, setRejectModalOpen] = useState(false);
 
     const { data: user, isLoading } = useUserDetails(userId);
     const { mutate: approve, isPending: approving } = useApproveUser();
@@ -59,8 +61,16 @@ export default function UserDetailView({ userId }) {
         );
     };
 
-    const handleReject = () => {
-        reject(user.id, { onSuccess: () => router.push('/dashboard') });
+    const handleReject = (reason) => {
+        reject(
+            { userId: user.id, reason },
+            {
+                onSuccess: () => {
+                    setRejectModalOpen(false);
+                    router.push('/dashboard');
+                },
+            }
+        );
     };
 
     const displayName = profile?.businessName || user.name;
@@ -106,9 +116,8 @@ export default function UserDetailView({ userId }) {
                         <div className="flex gap-2">
                             <button
                                 type="button"
-                                disabled={rejecting}
-                                onClick={handleReject}
-                                className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-60"
+                                onClick={() => setRejectModalOpen(true)}
+                                className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50"
                             >
                                 <FiX className="h-4 w-4" />
                                 Reject
@@ -250,6 +259,14 @@ export default function UserDetailView({ userId }) {
                 imageUrl={selectedDoc?.viewUrl}
                 title={DOCUMENT_LABELS[selectedDoc?.fileType] || selectedDoc?.fileType}
             />
+
+            <RejectModal
+                open={rejectModalOpen}
+                onClose={() => setRejectModalOpen(false)}
+                onConfirm={handleReject}
+                isPending={rejecting}
+            />
+
         </div>
     );
 }

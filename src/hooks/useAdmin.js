@@ -34,9 +34,9 @@ export const useRejectUser = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: rejectUser,
-        onSuccess: (_, userId) => {
+        onSuccess: (_, variables) => {
             queryClient.invalidateQueries({ queryKey: ['pendingUsers'] });
-            queryClient.invalidateQueries({ queryKey: ['userDetails', userId] });
+            queryClient.invalidateQueries({ queryKey: ['userDetails', variables.userId] });
             toast.success('User rejected');
         },
     });
