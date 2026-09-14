@@ -160,7 +160,7 @@ export default function DashboardHero({ data }) {
                     )}
 
                     {/* Action */}
-                    {data.action && (
+                    {data?.action && (
                         <motion.div
                             variants={itemVariants}
                             className="mt-6"

@@ -12,11 +12,13 @@ import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { usePendingUsers } from '@/hooks/useAdmin';
 import PendingApprovalCard from '@/app/components/onboarding/PendingApproval';
 import { useState } from 'react';
+import { useMyWallet } from '@/hooks/useWallet';
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
     const user = useAuthStore((state) => state.user);
     const isAdmin = user?.role === 'ADMIN';
+    const { data: wallet } = useMyWallet(!isAdmin);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 
@@ -28,12 +30,13 @@ export default function DashboardLayout({ children }) {
     if (!isAdmin && user && user.status !== 'APPROVED') {
         return <PendingApprovalCard />;
     }
-
     const dashboardRoutes = getDashboardRoutes({
         userName: user?.name,
         isProfileComplete,
         isAdmin,
         pendingCount: pendingData?.totalResults ?? 0,
+        walletBalance: wallet?.balance ?? 0,
+        creditLimit: wallet?.creditLimit ?? 0,
     });
 
     const routeKey = dashboardRoutes[pathname] ? pathname : '/dashboard';
@@ -57,14 +60,17 @@ export default function DashboardLayout({ children }) {
                     onMenuClick={() => setIsSidebarOpen((prev) => !prev)}
                 />
 
-                <main className="px-4 py-5 sm:px-6 lg:px-8 lg:py-7">
-                    <DashboardHero key={routeKey} data={pageData} />
+                <main className="px-4 py-5 sm:px-6 lg:px-8 lg:py-7 md:min-w-4xl ">
+                    {
+                        pathname != '/dashboard/wallet' &&
+                        <DashboardHero key={routeKey} data={pageData} />
+                    }
 
-                    {pageData.stats?.length > 0 && (
+                    {/* {pageData.stats?.length > 0 && (
                         <div className="mt-6">
                             <DashboardStats stats={pageData.stats} />
                         </div>
-                    )}
+                    )} */}
 
                     <motion.div
                         key={`content-${routeKey}`}

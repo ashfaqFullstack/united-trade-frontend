@@ -29,7 +29,8 @@ export default function Navbar() {
             <nav className="mx-auto flex max-w-7xl items-center justify-between px-7 py-4">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
-                    <Image src="/assets/United-Logo.png" alt="United Trade - Barter System" height={110} width={110} />
+                    <Image className="hidden md:block" src="/assets/United-Logo.png" alt="United Trade - Barter System" height={110} width={110} />
+                    <Image className="block md:hidden" src="/assets/Logo-icon.png" alt="United Trade - Barter System" height={50} width={50} />
                     {/* <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 text-white">
                         <ArrowsIcon className="h-4 w-4" />
                     </span> */}
@@ -60,65 +61,67 @@ export default function Navbar() {
                         </li>
                     ))}
                 </ul>
-                {/* Animated hamburger / close icon */}
-                <button
-                    onClick={() => setIsOpen((prev) => !prev)}
-                    className="relative z-50 cursor-pointer flex h-8 w-8 flex-col items-center justify-center gap-[6px] md:hidden"
-                    aria-label="Toggle menu"
-                >
-                    <motion.span
-                        className="h-[2px] w-6 bg-slate-800"
-                        animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                    />
-                    <motion.span
-                        className="h-[2px] w-6 bg-slate-800"
-                        animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-                        transition={{ duration: 0.2 }}
-                    />
-                    <motion.span
-                        className="h-[2px] w-6 bg-slate-800"
-                        animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                    />
-                </button>
+                <div className="flex items-center gap-3">
+                    {/* Animated hamburger / close icon */}
+                    <button
+                        onClick={() => setIsOpen((prev) => !prev)}
+                        className="relative z-50 flex h-8 w-8 cursor-pointer flex-col items-center justify-center gap-[6px] md:hidden"
+                        aria-label="Toggle menu"
+                    >
+                        <motion.span
+                            className="h-[2px] w-6 bg-slate-800"
+                            animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                        />
+                        <motion.span
+                            className="h-[2px] w-6 bg-slate-800"
+                            animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+                            transition={{ duration: 0.2 }}
+                        />
+                        <motion.span
+                            className="h-[2px] w-6 bg-slate-800"
+                            animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                        />
+                    </button>
 
-                {/* Right actions */}
-                {user ? (
-                    <UserMenu />
-                ) : (
-                    <div className="hidden items-center gap-2.5 md:flex">
-                        {/* Sign In */}
-                        <motion.div
-                            whileHover={{ y: -1 }}
-                            whileTap={{ scale: 0.97 }}
-                        >
-                            <Link
-                                href="/auth"
-                                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
+                    {/* Right actions */}
+                    {user ? (
+                        <UserMenu />
+                    ) : (
+                        <div className="hidden items-center gap-2.5 md:flex">
+                            {/* Sign In */}
+                            <motion.div
+                                whileHover={{ y: -1 }}
+                                whileTap={{ scale: 0.97 }}
                             >
-                                Sign in
-                            </Link>
-                        </motion.div>
+                                <Link
+                                    href="/auth"
+                                    className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
+                                >
+                                    Sign in
+                                </Link>
+                            </motion.div>
 
-                        {/* Join Marketplace */}
-                        <motion.div
-                            whileHover={{ y: -1 }}
-                            whileTap={{ scale: 0.97 }}
-                        >
-                            <Link
-                                href="/auth"
-                                className="group inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-indigo-700 hover:shadow-lg"
+                            {/* Join Marketplace */}
+                            <motion.div
+                                whileHover={{ y: -1 }}
+                                whileTap={{ scale: 0.97 }}
                             >
-                                Join
+                                <Link
+                                    href="/auth"
+                                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-indigo-700 hover:shadow-lg"
+                                >
+                                    Join
 
-                                <span className="text-base transition-transform duration-200 group-hover:translate-x-0.5">
-                                    →
-                                </span>
-                            </Link>
-                        </motion.div>
-                    </div>
-                )}
+                                    <span className="text-base transition-transform duration-200 group-hover:translate-x-0.5">
+                                        →
+                                    </span>
+                                </Link>
+                            </motion.div>
+                        </div>
+                    )}
+                </div>
 
 
 
@@ -135,7 +138,7 @@ export default function Navbar() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="fixed inset-0 top-[64px] z-40 bg-slate-900/20 md:hidden"
+                            className="fixed inset-0 top-[84px] z-40 bg-slate-900/20 md:hidden"
                             onClick={() => setIsOpen(false)}
                         />
 
