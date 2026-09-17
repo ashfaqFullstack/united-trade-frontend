@@ -1,9 +1,9 @@
 'use client';
 
-import MyQrCard from '@/app/components/wallet/qr/MyQrCard';
-import SendTransactionCard from '@/app/components/wallet/SendTransaction';
-import TransactionHistory from '@/app/components/wallet/TransactionHistory';
-import WalletOverview from '@/app/components/wallet/WalletOverview';
+import MyQrCard from '@/components/wallet/qr/MyQrCard';
+import SendTransactionCard from '@/components/wallet/SendTransaction';
+import TransactionHistory from '@/components/wallet/TransactionHistory';
+import WalletOverview from '@/components/wallet/WalletOverview';
 import { useState } from 'react';
 
 const TABS = [

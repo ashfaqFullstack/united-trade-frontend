@@ -13,6 +13,8 @@ import {
     FiSend,
     FiCamera,
     FiClock,
+    FiTag,
+    FiPackage,
 } from 'react-icons/fi';
 
 export const sidebarItems = [
@@ -26,6 +28,15 @@ export const sidebarItems = [
         href: '/dashboard/wallet',
         icon: FiRepeat,
     },
+    {
+        label: 'My Listings',
+        href: '/dashboard/listings',
+        icon: FiTag,
+    },
+    { label: 'My Orders', href: '/dashboard/orders', icon: FiPackage },
+    { label: 'Received Orders', href: '/dashboard/orders/received', icon: FiPackage },
+    { label: 'My Barter Offers', href: '/dashboard/barter-offers', icon: FiRepeat },
+    { label: 'Received Offers', href: '/dashboard/barter-offers/received', icon: FiRepeat },
 ];
 
 export const getDashboardRoutes = ({

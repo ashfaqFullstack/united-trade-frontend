@@ -1,8 +1,8 @@
 'use client';
 
 import { useAuthStore } from '@/store/useAuthStore';
-import AdminPendingUsers from '@/app/components/Dashboard/Admin/PendingUsers';
-import ProfileSummaryCard from '@/app/components/Dashboard/ProfileSummaryCard';
+import AdminPendingUsers from '@/components/Dashboard/Admin/PendingUsers';
+import ProfileSummaryCard from '@/components/Dashboard/ProfileSummaryCard';
 
 export default function DashboardPage() {
     const user = useAuthStore((state) => state.user);

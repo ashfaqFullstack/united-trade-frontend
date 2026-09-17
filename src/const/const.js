@@ -285,8 +285,10 @@ export const BUSINESS_CATEGORIES = [
     'Food & Grocery',
     'Health & Beauty',
     'Automotive',
+    'Sports',
+    'Books',
+    'Toys',
     'Services',
-    'Other',
 ];
 
 export const DOCUMENT_LABELS = {

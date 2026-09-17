@@ -1,3 +1,3 @@
-import SendTransactionCard from "@/app/components/wallet/SendTransaction";
+import SendTransactionCard from "@/components/wallet/SendTransaction";
 
 export default function Page() { return <SendTransactionCard />; }

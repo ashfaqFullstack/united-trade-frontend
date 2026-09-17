@@ -19,7 +19,7 @@ import SocialButton from './SocialButton';
 import RoleToggle from './RoleToggle';
 import { useRegister } from '@/hooks/useAuth';
 import { toast } from 'sonner';
-import BackButton from '@/app/components/ui/BackButton';
+import BackButton from '@/components/ui/BackButton';
 
 const registerSchema = z
     .object({
