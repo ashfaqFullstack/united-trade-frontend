@@ -65,7 +65,7 @@ export default function OrderDetailPage() {
 
                 {order.status === 'ESCROW_HELD' && (
                     <div className="mt-5 flex gap-3">
-                        <button
+                        {/* <button
                             type="button"
                             onClick={() => setConfirmAction('complete')}
                             disabled={completing || cancelling}
@@ -73,7 +73,7 @@ export default function OrderDetailPage() {
                         >
                             {completing ? <LuLoaderCircle className="h-5 w-5 animate-spin" /> : <FiCheck className="h-4 w-4" />}
                             Mark as Complete
-                        </button>
+                        </button> */}
                         <button
                             type="button"
                             onClick={() => setConfirmAction('cancel')}

@@ -36,7 +36,7 @@ export default function ApproveModal({ open, onClose, onConfirm, isPending }) {
                     type="button"
                     disabled={isPending}
                     onClick={() => onConfirm(creditLimit ? Number(creditLimit) : undefined)}
-                    className="flex-1 items-center justify-center text-center cursor-pointer rounded-xl bg-emerald-600 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-60"
+                    className="flex items-center justify-center text-center cursor-pointer rounded-xl bg-emerald-600 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-60"
                 >
                     {isPending ?
                         <LuLoaderCircle className="h-5 w-5 animate-spin" />
