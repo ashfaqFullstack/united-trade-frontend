@@ -1,3 +1,11 @@
-import SendTransactionCard from "@/components/wallet/SendTransaction";
+'use client';
 
-export default function Page() { return <SendTransactionCard />; }
+import SendTransactionCard from '@/components/wallet/SendTransaction';
+import { useSearchParams } from 'next/navigation';
+
+export default function Page() {
+    const searchParams = useSearchParams();
+    const receiverId = searchParams.get('receiverId');
+
+    return <SendTransactionCard initialReceiverId={receiverId} />;
+}

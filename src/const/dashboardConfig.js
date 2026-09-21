@@ -23,6 +23,8 @@ export const sidebarItems = [
         href: '/dashboard',
         icon: FiHome,
     },
+    // { label: 'Currency Rates', href: '/dashboard/currency', icon: FiPackage },
+    { label: 'Users', href: '/dashboard/admin/users', icon: FiUsers },
     {
         label: 'My Wallet',
         href: '/dashboard/wallet',
@@ -38,6 +40,18 @@ export const sidebarItems = [
     { label: 'My Barter Offers', href: '/dashboard/barter-offers', icon: FiRepeat },
     { label: 'Received Offers', href: '/dashboard/barter-offers/received', icon: FiRepeat },
 ];
+
+const adminSidebarHrefs = new Set([
+    '/dashboard',
+    '/dashboard/admin/users',
+    '/dashboard/wallet',
+]);
+
+export const getSidebarItems = (isAdmin = false) => (
+    isAdmin
+        ? sidebarItems.filter((item) => adminSidebarHrefs.has(item.href))
+        : sidebarItems
+);
 
 export const getDashboardRoutes = ({
     userName,

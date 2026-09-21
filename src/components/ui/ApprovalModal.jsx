@@ -2,6 +2,7 @@
 
 import Modal from '@/components/ui/Modal';
 import { useState } from 'react';
+import { LuLoaderCircle } from 'react-icons/lu';
 
 export default function ApproveModal({ open, onClose, onConfirm, isPending }) {
     const [creditLimit, setCreditLimit] = useState('');
@@ -35,9 +36,11 @@ export default function ApproveModal({ open, onClose, onConfirm, isPending }) {
                     type="button"
                     disabled={isPending}
                     onClick={() => onConfirm(creditLimit ? Number(creditLimit) : undefined)}
-                    className="flex-1 cursor-pointer rounded-xl bg-emerald-600 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-60"
+                    className="flex-1 items-center justify-center text-center cursor-pointer rounded-xl bg-emerald-600 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-60"
                 >
-                    {isPending ? 'Approving...' : 'Confirm Approve'}
+                    {isPending ?
+                        <LuLoaderCircle className="h-5 w-5 animate-spin" />
+                        : 'Confirm Approve'}
                 </button>
             </div>
         </Modal>

@@ -5,10 +5,9 @@ import { toast } from 'sonner';
 import { useSendTransaction } from '@/hooks/useTransaction';
 import QrScanner from './qr/QrScanner';
 import PinKeypad from './PinKeypad';
-
-export default function SendTransactionCard() {
-    const [step, setStep] = useState('scan'); // scan | amount | pin | done
-    const [receiverId, setReceiverId] = useState('');
+export default function SendTransactionCard({ initialReceiverId }) {
+    const [step, setStep] = useState(initialReceiverId ? 'amount' : 'scan');
+    const [receiverId, setReceiverId] = useState(initialReceiverId || '');
     const [amount, setAmount] = useState('');
     const [pin, setPin] = useState('');
     const [error, setError] = useState('');

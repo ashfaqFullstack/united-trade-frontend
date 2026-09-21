@@ -22,7 +22,7 @@ import BackButton from '@/components/ui/BackButton';
 import Loading from '@/components/ui/Loading';
 import DetailItem from '@/components/ui/DetailItem';
 import { DOCUMENT_LABELS, TIER_META } from '@/const/const';
-import RejectModal from './Modals/RejectModal';
+import RejectModal from '../Modals/RejectModal';
 
 export default function UserDetailView({ userId }) {
     const router = useRouter();
@@ -78,7 +78,7 @@ export default function UserDetailView({ userId }) {
 
     return (
         <div className="mx-auto max-w-4xl">
-            <BackButton handleBack={() => router.back()} title="Back to pending approvals" />
+            <BackButton handleBack={() => router.back()} title="Back" />
 
             {/* Header / identity card */}
             <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white">

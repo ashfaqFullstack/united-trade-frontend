@@ -42,7 +42,11 @@ export default function DashboardLayout({ children }) {
 
     return (
         <div className="min-h-screen w-full bg-[#f8fafc] lg:grid lg:grid-cols-[280px_1fr]">
-            <DashboardSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            <DashboardSidebar
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
+                isAdmin={isAdmin}
+            />
 
             {/* Mobile backdrop */}
             {isSidebarOpen && (

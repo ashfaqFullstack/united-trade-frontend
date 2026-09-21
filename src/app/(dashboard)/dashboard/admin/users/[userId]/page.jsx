@@ -1,6 +1,6 @@
 'use client';
 
-import UserDetailView from '@/components/Dashboard/Admin/UserDetailsView';
+import UserDetailView from '@/components/Dashboard/Admin/users/UserDetailsView';
 import { useParams } from 'next/navigation';
 
 export default function AdminUserDetailPage() {

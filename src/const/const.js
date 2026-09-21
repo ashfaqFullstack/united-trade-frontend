@@ -303,12 +303,16 @@ export const steps = [
 ];
 
 export const TIER_META = {
-    STANDARD: { label: 'Standard', range: '$2,000 – $3,000', accent: 'from-slate-500 to-slate-700' },
+    STANDARD: { label: 'Standard', range: '$2,000 – $3,000', accent: 'from-indigo-500 to-purple-700' },
     GOLD: { label: 'Gold', range: '$10,000 – $15,000', accent: 'from-amber-500 to-orange-600' },
-    PLATINUM: { label: 'Platinum', range: '$25,000 – $50,000', accent: 'from-indigo-500 to-purple-600' },
+    PLATINUM: { label: 'Platinum', range: '$25,000 – $50,000', accent: 'from-slate-600 to-slate-400' },
 };
 
 export const serviceImages = [
     '/assets/services/service.png',
     '/assets/services/services.png',
 ];
+
+export const SIDEBAR_FEATURES = {
+    CURRENCY_RATES: false,
+};

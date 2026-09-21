@@ -3,14 +3,21 @@
 import { useRouter } from 'next/navigation';
 import { FiEye, FiSend, FiCamera as FiScanQr, FiUsers, FiPlusCircle } from 'react-icons/fi';
 import { useMyWallet } from '@/hooks/useWallet';
+import { useAuthStore } from '@/store/useAuthStore';
 import TransactionHistoryPreview from './TransactionHistoryPreview';
 import Loading from '../ui/Loading';
 import SetPinCard from './SetPinCard';
 import QuickActionButton from './QuickActionButton';
+import { TIER_META } from '@/const/const';
+import { useBusinessProfile } from '@/hooks/useBusiness';
+import { useCustomerProfile } from '@/hooks/useCustomer';
 
 export default function WalletOverview() {
     const { data: wallet, isLoading } = useMyWallet();
+    const user = useAuthStore((state) => state.user);
     const router = useRouter();
+    const isBusiness = user?.role === 'BUSINESS';
+    const { data: profile } = isBusiness ? useBusinessProfile(isBusiness) : useCustomerProfile(isBusiness);
 
     if (isLoading) {
         return <Loading />;
@@ -23,13 +30,15 @@ export default function WalletOverview() {
         return <SetPinCard onSuccess={() => window.location.reload()} />;
     }
 
+    const tier = profile?.membershipTier ? TIER_META[profile.membershipTier] : TIER_META.STANDARD;
+
     const available = Number(wallet.balance) + Number(wallet.creditLimit);
 
     return (
         <div className="space-y-5">
             <h2 className="text-lg font-bold text-slate-900">My Wallet</h2>
 
-            <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 p-6 text-white">
+            <div className={`rounded-2xl bg-gradient-to-br ${tier.accent} p-6 text-white`}>
                 <div className="flex items-center gap-2 text-xs font-medium text-white/70">
                     Total Balance
                     <FiEye className="h-3.5 w-3.5" />
@@ -48,12 +57,12 @@ export default function WalletOverview() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-2 rounded-2xl border border-slate-100 bg-white p-3">
+            {/* <div className="grid grid-cols-4 gap-2 rounded-2xl border border-slate-100 bg-white p-3">
                 <QuickActionButton icon={FiSend} label="Send Money" color="blue" onClick={() => router.push('/dashboard/wallet/send')} />
                 <QuickActionButton icon={FiScanQr} label="Scan QR" color="purple" onClick={() => router.push('/dashboard/wallet/qr')} />
                 <QuickActionButton icon={FiUsers} label="Request Money" color="emerald" disabled />
                 <QuickActionButton icon={FiPlusCircle} label="Add Money" color="amber" disabled />
-            </div>
+            </div> */}
 
             <TransactionHistoryPreview />
         </div>

@@ -108,7 +108,7 @@ export default function PinKeypad({
                     type="button"
                     onClick={() => onSubmit(value)}
                     disabled={value.length !== length || isSubmitting}
-                    className="mt-6 w-full cursor-pointer rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="mt-6 w-full cursor-pointer text-center flex items-center justify-center rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                     {isSubmitting ?
                         <LuLoaderCircle className="h-5 w-5 animate-spin" />

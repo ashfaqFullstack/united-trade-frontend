@@ -19,3 +19,18 @@ export const getUserDetails = async (userId) => {
     const res = await api.get(`/admin/users/${userId}`);
     return res.data;
 };
+
+export const getAllUsers = async (params) => {
+    const res = await api.get('/admin/users', { params });
+    return res.data;
+};
+
+export const blockUser = async (userId) => {
+    const res = await api.patch(`/admin/users/${userId}/block`);
+    return res.data;
+};
+
+export const unblockUser = async (userId) => {
+    const res = await api.patch(`/admin/users/${userId}/unblock`);
+    return res.data;
+};

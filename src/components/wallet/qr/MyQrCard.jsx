@@ -55,14 +55,6 @@ export default function MyQrCard() {
                     <FiDownload className="h-4 w-4" />
                     Download QR
                 </button>
-                <button
-                    type="button"
-                    onClick={handleShare}
-                    className="mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
-                >
-                    <FiShare2 className="h-4 w-4" />
-                    Share
-                </button>
             </div>
 
             <div className="rounded-2xl border border-slate-100 bg-white p-5">

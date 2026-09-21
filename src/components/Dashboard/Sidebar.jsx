@@ -4,12 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiRepeat } from 'react-icons/fi';
-import { sidebarItems } from '@/const/dashboardConfig';
+import { getSidebarItems } from '@/const/dashboardConfig';
+import Image from 'next/image';
 
 
-export default function DashboardSidebar({ isOpen, onClose }) {
+export default function DashboardSidebar({ isOpen, onClose, isAdmin }) {
     const pathname = usePathname();
-    const activeHref = sidebarItems
+    const visibleSidebarItems = getSidebarItems(isAdmin);
+    const activeHref = visibleSidebarItems
         .filter((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))
         .sort((first, second) => second.href.length - first.href.length)[0]?.href;
 
@@ -22,14 +24,16 @@ export default function DashboardSidebar({ isOpen, onClose }) {
                     href="/"
                     className="mb-10 flex items-center gap-3 px-2"
                 >
-                    <span className="text-[25px] font-extrabold tracking-tight text-slate-900">
+                    <Image src="/assets/Logo-icon.png" alt="Logo" height={80} width={80} />
+                    <Image src="/assets/logo-wording.png" alt="Logo" height={120} width={120} />
+                    {/* <span className="text-[25px] font-extrabold tracking-tight text-slate-900">
                         United Trade
-                    </span>
+                    </span> */}
                 </Link>
 
                 {/* Navigation */}
                 <nav className="space-y-2">
-                    {sidebarItems.map((item) => {
+                    {visibleSidebarItems.map((item) => {
                         const Icon = item.icon;
 
                         const isActive = activeHref === item.href;
@@ -44,7 +48,7 @@ export default function DashboardSidebar({ isOpen, onClose }) {
                                 {isActive && (
                                     <motion.div
                                         layoutId="sidebar-active"
-                                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50"
+                                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-700 to-blue-700"
                                         transition={{
                                             type: 'spring',
                                             stiffness: 380,
@@ -59,8 +63,10 @@ export default function DashboardSidebar({ isOpen, onClose }) {
                                         rounded-xl px-4 py-3.5
                                         transition-colors duration-200
                                         ${isActive
-                                            ? 'text-blue-600'
+                                            ? "text-white"
                                             : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+
+                                        // ? 'text-blue-600'
                                         }
                                     `}
                                 >

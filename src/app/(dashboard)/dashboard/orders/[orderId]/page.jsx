@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiArrowLeft, FiCheck } from 'react-icons/fi';
+import { FiCheck } from 'react-icons/fi';
 import { LuLoaderCircle } from 'react-icons/lu';
 import Loading from '@/components/ui/Loading';
 import StatusBadge from '@/components/ui/StatusBadge';
+import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import { useMyOrders, useReceivedOrders, useCompleteOrder, useCancelOrder } from '@/hooks/useOrder';
 import BackButton from '@/components/ui/BackButton';
 
@@ -17,6 +19,7 @@ export default function OrderDetailPage() {
     const { data: receivedOrders, isLoading: receivedOrdersLoading } = useReceivedOrders();
     const { mutate: complete, isPending: completing } = useCompleteOrder();
     const { mutate: cancel, isPending: cancelling } = useCancelOrder();
+    const [confirmAction, setConfirmAction] = useState(null);
 
     if (isLoading || receivedOrdersLoading) return <Loading />;
 
@@ -26,9 +29,22 @@ export default function OrderDetailPage() {
     const isCancelled = order.status === 'CANCELLED';
     const activeStepIndex = isCancelled ? -1 : STEPS.indexOf(order.status);
 
+    const submitConfirm = () => {
+        if (!confirmAction) return;
+
+        if (confirmAction === 'complete') {
+            complete(order.id);
+        }
+
+        if (confirmAction === 'cancel') {
+            cancel(order.id);
+        }
+
+        setConfirmAction(null);
+    };
+
     return (
         <div className="mx-auto max-w-3xl space-y-5">
-
             <BackButton handleBack={() => router.back()} title="Back" />
 
             <div className="rounded-2xl border border-slate-100 bg-white p-6">
@@ -49,18 +65,18 @@ export default function OrderDetailPage() {
 
                 {order.status === 'ESCROW_HELD' && (
                     <div className="mt-5 flex gap-3">
-                        {/* <button
+                        <button
                             type="button"
-                            onClick={() => complete(order.id)}
+                            onClick={() => setConfirmAction('complete')}
                             disabled={completing || cancelling}
                             className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
                         >
                             {completing ? <LuLoaderCircle className="h-5 w-5 animate-spin" /> : <FiCheck className="h-4 w-4" />}
                             Mark as Complete
-                        </button> */}
+                        </button>
                         <button
                             type="button"
-                            onClick={() => cancel(order.id)}
+                            onClick={() => setConfirmAction('cancel')}
                             disabled={completing || cancelling}
                             className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-red-200 py-2.5 text-sm font-semibold text-red-500 transition hover:bg-red-50 disabled:opacity-60"
                         >
@@ -119,6 +135,15 @@ export default function OrderDetailPage() {
                     </div>
                 </dl>
             </div>
+
+            <ConfirmationModal
+                isOpen={Boolean(confirmAction)}
+                type={confirmAction === 'complete' ? 'complete' : 'cancel'}
+                listingTitle={order.listing?.title || 'this order'}
+                onClose={() => setConfirmAction(null)}
+                onConfirm={submitConfirm}
+                isLoading={confirmAction === 'complete' ? completing : cancelling}
+            />
         </div>
     );
 }
