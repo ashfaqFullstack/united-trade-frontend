@@ -52,7 +52,7 @@ export default function ListingDetail() {
                                     key={img}
                                     type="button"
                                     onClick={() => setActiveImage(i)}
-                                    className={`h-16 w-16 overflow-hidden rounded-xl border-2 ${activeImage === i ? 'border-blue-600' : 'border-transparent'
+                                    className={`h-16 w-16 overflow-hidden cursor-pointer rounded-xl border-2 ${activeImage === i ? 'border-blue-600' : 'border-transparent'
                                         }`}
                                 >
                                     <img src={img} alt="" className="h-full w-full object-cover" />

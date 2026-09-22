@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { getPendingUsers, getUserDetails, approveUser, rejectUser } from '@/services/admin.service';
+import { getPendingUsers, getUserDetails, approveUser, rejectUser, fundAdminWallet } from '@/services/admin.service';
 import { getAllUsers, blockUser, unblockUser } from '@/services/admin.service';
 
 export const usePendingUsers = (params, enabled = true) => {
@@ -65,6 +65,19 @@ export const useUnblockUser = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['allUsers'] });
             toast.success('User account reactivated');
+        },
+    });
+};
+
+
+export const useFundAdminWallet = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: fundAdminWallet,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['companyAccount'] });
+            queryClient.invalidateQueries({ queryKey: ['wallet'] });
+            toast.success('Wallet funded successfully');
         },
     });
 };

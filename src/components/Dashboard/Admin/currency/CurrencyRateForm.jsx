@@ -71,7 +71,7 @@ export default function CurrencyRateForm() {
             <button
                 type="submit"
                 disabled={isPending}
-                className="mt-5 flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
+                className="mt-5 flex items-center cursor-pointer gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
             >
                 {isPending && <LuLoaderCircle className="h-4 w-4 animate-spin" />}
                 Add Rate

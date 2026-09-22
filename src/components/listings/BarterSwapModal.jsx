@@ -39,7 +39,7 @@ export default function BarterSwapModal({ open, onClose, targetListing }) {
                     <button
                         type="button"
                         onClick={() => router.push('/dashboard/barter-offers')}
-                        className="mt-5 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
+                        className="mt-5 w-full cursor-pointer rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
                     >
                         View My Offers
                     </button>
@@ -59,7 +59,7 @@ export default function BarterSwapModal({ open, onClose, targetListing }) {
                                     key={listing.id}
                                     type="button"
                                     onClick={() => setSelectedId(listing.id)}
-                                    className={`overflow-hidden rounded-xl border-2 text-left transition ${selectedId === listing.id ? 'border-blue-600' : 'border-transparent'
+                                    className={`overflow-hidden cursor-pointer rounded-xl border-2 text-left transition ${selectedId === listing.id ? 'border-blue-600' : 'border-transparent'
                                         }`}
                                 >
                                     <div className="aspect-square bg-slate-100">
@@ -77,14 +77,14 @@ export default function BarterSwapModal({ open, onClose, targetListing }) {
                     )}
 
                     <div className="mt-5 flex gap-3">
-                        <button type="button" onClick={handleClose} className="flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50">
+                        <button type="button" onClick={handleClose} className="flex-1 cursor-pointer rounded-xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50">
                             Cancel
                         </button>
                         <button
                             type="button"
                             onClick={handleSend}
                             disabled={!selectedId || isPending}
-                            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
+                            className="flex flex-1 items-center cursor-pointer justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
                         >
                             {isPending && <LuLoaderCircle className="h-4 w-4 animate-spin" />}
                             Send Offer

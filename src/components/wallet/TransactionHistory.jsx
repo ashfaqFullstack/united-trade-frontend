@@ -40,7 +40,7 @@ export default function TransactionHistory() {
                         type="button"
                         disabled={t.disabled}
                         onClick={() => setTab(t.key)}
-                        className={`whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 ${tab === t.key ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'
+                        className={`whitespace-nowrap cursor-pointer rounded-full px-4 py-1.5 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 ${tab === t.key ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'
                             }`}
                     >
                         {t.label}

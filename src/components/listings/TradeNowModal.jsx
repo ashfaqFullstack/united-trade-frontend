@@ -50,10 +50,10 @@ export default function TradeNowModal({ open, onClose, listing }) {
                     </div>
 
                     <div className="mt-6 flex gap-3">
-                        <button type="button" onClick={handleClose} className="flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50">
+                        <button type="button" onClick={handleClose} className="flex-1 rounded-xl border cursor-pointer border-slate-200 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50">
                             Cancel
                         </button>
-                        <button type="button" onClick={() => setStep('pin')} className="flex-1 rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">
+                        <button type="button" onClick={() => setStep('pin')} className="flex-1 rounded-xl cursor-pointer bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">
                             Proceed
                         </button>
                     </div>
@@ -92,7 +92,7 @@ export default function TradeNowModal({ open, onClose, listing }) {
                     <button
                         type="button"
                         onClick={() => router.push('/dashboard/orders')}
-                        className="mt-5 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
+                        className="mt-5 w-full cursor-pointer rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
                     >
                         View Order
                     </button>

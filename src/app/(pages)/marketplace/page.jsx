@@ -1,5 +1,10 @@
 import MarketplaceGrid from "@/components/listings/MarketPlaceGrid";
+import RouteGuard from "@/route/guard/RouteGuard";
 
 export default function ListingsPage() {
-    return <MarketplaceGrid />;
+    return (
+        <RouteGuard type="protected">
+            <MarketplaceGrid />
+        </RouteGuard>
+    )
 }

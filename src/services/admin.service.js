@@ -34,3 +34,8 @@ export const unblockUser = async (userId) => {
     const res = await api.patch(`/admin/users/${userId}/unblock`);
     return res.data;
 };
+
+export const fundAdminWallet = async (amount) => {
+    const res = await api.post('/admin/company-account/fund-wallet', { amount });
+    return res.data;
+};

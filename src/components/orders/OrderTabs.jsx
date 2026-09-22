@@ -17,7 +17,7 @@ export default function OrderTabs({ orders, tab, onChange }) {
                     key={t.key}
                     type="button"
                     onClick={() => onChange(t.key)}
-                    className={`whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold transition ${tab === t.key ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                    className={`whitespace-nowrap cursor-pointer rounded-full px-4 py-1.5 text-xs font-semibold transition ${tab === t.key ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                         }`}
                 >
                     {t.label} ({count(t.key)})

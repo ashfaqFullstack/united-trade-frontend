@@ -28,7 +28,7 @@ export default function ReceivedBarterOffersPage() {
                         key={t}
                         type="button"
                         onClick={() => setTab(t)}
-                        className={`whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold transition ${tab === t ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                        className={`whitespace-nowrap cursor-pointer rounded-full px-4 py-1.5 text-xs font-semibold transition ${tab === t ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                             }`}
                     >
                         {t} ({t === 'All' ? offers?.length || 0 : (offers || []).filter((o) => o.status.toLowerCase() === t.toLowerCase()).length})

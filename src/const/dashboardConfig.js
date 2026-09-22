@@ -15,6 +15,7 @@ import {
     FiClock,
     FiTag,
     FiPackage,
+    FiFileText,
 } from 'react-icons/fi';
 
 export const sidebarItems = [
@@ -25,6 +26,7 @@ export const sidebarItems = [
     },
     // { label: 'Currency Rates', href: '/dashboard/currency', icon: FiPackage },
     { label: 'Users', href: '/dashboard/admin/users', icon: FiUsers },
+    { label: 'Reports', href: '/dashboard/admin/reports', icon: FiFileText },
     {
         label: 'My Wallet',
         href: '/dashboard/wallet',
@@ -45,12 +47,19 @@ const adminSidebarHrefs = new Set([
     '/dashboard',
     '/dashboard/admin/users',
     '/dashboard/wallet',
+    '/dashboard/admin/reports',
+    '/dashboard/orders'
+]);
+
+const adminOnlySidebarHrefs = new Set([
+    '/dashboard/admin/users',
+    '/dashboard/admin/reports',
 ]);
 
 export const getSidebarItems = (isAdmin = false) => (
     isAdmin
         ? sidebarItems.filter((item) => adminSidebarHrefs.has(item.href))
-        : sidebarItems
+        : sidebarItems.filter((item) => !adminOnlySidebarHrefs.has(item.href))
 );
 
 export const getDashboardRoutes = ({

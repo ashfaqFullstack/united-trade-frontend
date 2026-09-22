@@ -70,6 +70,8 @@ export const useRouteGuard = (pageType = 'protected') => {
         } else if (!isAuthenticated) {
             const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
             redirectTo = `/auth?next=${encodeURIComponent(currentUrl)}`;
+        } else if (pageType === 'admin') {
+            if (user.role !== 'ADMIN') redirectTo = '/';
         } else if (pageType === 'onboarding') {
             if (isComplete) redirectTo = user.status === 'APPROVED' ? '/' : '/pending-approval';
         } else if (pageType === 'pendingApproval') {

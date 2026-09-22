@@ -130,7 +130,7 @@ export default function MarketplaceGrid() {
                                 type="button"
                                 onClick={() => handleSearch('')}
                                 className="
-                                    absolute right-3 top-1/2
+                                    absolute cursor-pointer right-3 top-1/2
                                     -translate-y-1/2
                                     rounded-full p-1.5
                                     text-slate-400
@@ -148,7 +148,7 @@ export default function MarketplaceGrid() {
                         type="button"
                         onClick={() => setMobileFiltersOpen(true)}
                         className="
-                            flex h-11 items-center justify-center
+                            flex h-11 cursor-pointer items-center justify-center
                             gap-2 rounded-xl border border-slate-200
                             bg-white px-4 text-sm font-medium
                             text-slate-700 shadow-sm
@@ -227,7 +227,7 @@ export default function MarketplaceGrid() {
                                     type="button"
                                     onClick={clearAllFilters}
                                     className="
-                                        text-xs font-medium
+                                        text-xs cursor-pointer font-medium
                                         text-blue-600
                                         transition hover:text-blue-700
                                     "
@@ -264,7 +264,7 @@ export default function MarketplaceGrid() {
                                 <button
                                     type="button"
                                     className="
-                                        mt-4 w-full rounded-xl
+                                        mt-4 w-full cursor-pointer rounded-xl
                                         bg-white py-2.5
                                         text-xs font-bold
                                         text-blue-600
@@ -463,7 +463,7 @@ export default function MarketplaceGrid() {
                         aria-label="Close filters"
                         onClick={() => setMobileFiltersOpen(false)}
                         className="
-                            absolute inset-0
+                            absolute cursor-pointer inset-0
                             bg-slate-950/40
                             backdrop-blur-sm
                         "
@@ -499,7 +499,7 @@ export default function MarketplaceGrid() {
                                 }
                                 className="
                                     flex h-9 w-9 items-center
-                                    justify-center rounded-full
+                                    justify-center cursor-pointer rounded-full
                                     bg-slate-100 text-slate-600
                                 "
                             >
@@ -516,7 +516,7 @@ export default function MarketplaceGrid() {
                                 type="button"
                                 onClick={clearAllFilters}
                                 className="
-                                    mt-5 w-full rounded-xl
+                                    mt-5 w-full cursor-pointer rounded-xl
                                     border border-slate-200
                                     py-3 text-sm font-semibold
                                     text-slate-600
@@ -580,7 +580,7 @@ function EmptyState({
                     bg-blue-600 px-5 py-2.5
                     text-sm font-semibold text-white
                     shadow-lg shadow-blue-600/20
-                    transition hover:bg-blue-700
+                    transition cursor-pointer hover:bg-blue-700
                 "
             >
                 Clear Filters

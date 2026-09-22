@@ -78,7 +78,7 @@ export default function OrderDetailPage() {
                             type="button"
                             onClick={() => setConfirmAction('cancel')}
                             disabled={completing || cancelling}
-                            className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-red-200 py-2.5 text-sm font-semibold text-red-500 transition hover:bg-red-50 disabled:opacity-60"
+                            className="flex flex-1 items-center cursor-pointer justify-center gap-2 rounded-xl border border-red-200 py-2.5 text-sm font-semibold text-red-500 transition hover:bg-red-50 disabled:opacity-60"
                         >
                             {cancelling && <LuLoaderCircle className="h-5 w-5 animate-spin" />}
                             Cancel Order

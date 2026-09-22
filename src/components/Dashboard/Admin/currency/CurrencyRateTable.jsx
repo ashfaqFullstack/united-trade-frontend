@@ -62,7 +62,7 @@ export default function CurrencyRateTable() {
                                     type="button"
                                     onClick={() => handleSave(r.id)}
                                     disabled={isUpdatingThis}
-                                    className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
+                                    className="flex items-center gap-1.5 cursor-pointer rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
                                 >
                                     {isUpdatingThis && <LuLoaderCircle className="h-3.5 w-3.5 animate-spin" />}
                                     Save
@@ -72,7 +72,7 @@ export default function CurrencyRateTable() {
                                     type="button"
                                     onClick={() => deleteRate(r.id)}
                                     disabled={isDeletingThis}
-                                    className="flex items-center gap-1 rounded-lg border border-red-200 px-3 py-1.5 text-xs font-semibold text-red-500 transition hover:bg-red-50 disabled:opacity-60"
+                                    className="flex items-center gap-1 rounded-lg border cursor-pointer border-red-200 px-3 py-1.5 text-xs font-semibold text-red-500 transition hover:bg-red-50 disabled:opacity-60"
                                 >
                                     {isDeletingThis ? <LuLoaderCircle className="h-3.5 w-3.5 animate-spin" /> : <FiTrash2 className="h-3.5 w-3.5" />}
                                 </button>
