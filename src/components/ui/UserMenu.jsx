@@ -93,7 +93,7 @@ export default function UserMenu() {
                     </Link>
 
                     {/* Profile */}
-                    <Link
+                    {/* <Link
                         href="/dashboard/profile"
                         onClick={() => setOpen(false)}
                         className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
@@ -103,7 +103,7 @@ export default function UserMenu() {
                         </span>
 
                         Profile
-                    </Link>
+                    </Link> */}
 
                     {/* Divider */}
                     <div className="my-1.5 h-px bg-slate-100" />
