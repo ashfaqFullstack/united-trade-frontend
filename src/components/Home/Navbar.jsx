@@ -10,10 +10,9 @@ import Image from "next/image";
 
 const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Why Barter", href: "/" },
+    { label: "Why Barter", href: "/why-barter" },
     { label: 'Marketplace', href: '/marketplace' },
-    { label: "Safety", href: "/" },
-    { label: "FAQ", href: "/" },
+    { label: "FAQ", href: "/faq" },
 ];
 
 function isNavLinkActive(pathname, href) {

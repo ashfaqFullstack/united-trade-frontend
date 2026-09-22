@@ -98,12 +98,10 @@ export const bubbles = [
 ];
 
 export const footerLinks = [
-    { label: 'About', href: '/' },
-    { label: 'How It Works', href: '/' },
-    { label: 'Safety', href: '/' },
-    { label: 'FAQ', href: '/' },
-    { label: 'Privacy', href: '/' },
-    { label: 'Terms', href: '/' },
+    { label: 'Home', href: '/' },
+    { label: 'Why Barter', href: '/why-barter' },
+    { label: 'Marketplace', href: '/marketplace' },
+    { label: 'FAQ', href: '/faq' },
 ];
 
 export const socialLinks = [

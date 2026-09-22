@@ -100,7 +100,7 @@ export default function Footer() {
                         </nav>
 
                         {/* SOCIAL ICONS */}
-                        <div className="flex items-center gap-2 lg:mt-1">
+                        {/* <div className="flex items-center gap-2 lg:mt-1">
                             {socialLinks.map((social) => {
                                 const Icon = social.icon;
 
@@ -115,7 +115,8 @@ export default function Footer() {
                                     </Link>
                                 );
                             })}
-                        </div>
+                        </div> */}
+                        <></>
                     </div>
 
                     {/* COPYRIGHT */}
