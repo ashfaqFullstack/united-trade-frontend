@@ -12,6 +12,12 @@ const nextConfig = {
   allowedDevOrigins: ['192.168.1.11'],
   images: {
     qualities: [25, 50, 75, 100],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+    ],
   },
 };
 

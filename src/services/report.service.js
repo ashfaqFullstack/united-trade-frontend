@@ -24,3 +24,13 @@ export const getSalesChart = async (days = 7) => {
     const res = await api.get('/admin/dashboard/sales-chart', { params: { days } });
     return res.data;
 };
+
+export const getUserDashboardSummary = async () => {
+    const res = await api.get('/dashboard/summary');
+    return res.data;
+};
+
+export const getUserSalesChart = async (period = 7) => {
+    const res = await api.get('/dashboard/sales-chart', { params: { period } });
+    return res.data;
+};

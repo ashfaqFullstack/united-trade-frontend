@@ -12,7 +12,12 @@ export const useCompleteBusinessProfile = () => {
     return useMutation({
         mutationFn: completeBusinessProfile,
         onSuccess: (data) => {
-            queryClient.setQueryData(['businessProfile'], data);
+            queryClient.setQueryData(['businessProfile'], (previousProfile) => ({
+                ...previousProfile,
+                ...data,
+                documents: data.documents ?? previousProfile?.documents,
+            }));
+            queryClient.invalidateQueries({ queryKey: ['businessProfile'] });
             toast.success('Business details saved');
         },
     });

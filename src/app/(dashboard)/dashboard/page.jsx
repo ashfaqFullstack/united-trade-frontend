@@ -1,8 +1,8 @@
 'use client';
 
 import { useAuthStore } from '@/store/useAuthStore';
-import ProfileSummaryCard from '@/components/Dashboard/ProfileSummaryCard';
 import AdminOverview from '@/components/Dashboard/Admin/AdminOverview';
+import UserDashboardOverview from '@/components/Dashboard/UserDashboardOverview';
 
 export default function DashboardPage() {
     const user = useAuthStore((state) => state.user);
@@ -11,5 +11,5 @@ export default function DashboardPage() {
         return <AdminOverview />;
     }
 
-    return <ProfileSummaryCard />;
+    return <UserDashboardOverview />;
 }

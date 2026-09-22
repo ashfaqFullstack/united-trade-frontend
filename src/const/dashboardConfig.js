@@ -27,6 +27,7 @@ export const sidebarItems = [
     // { label: 'Currency Rates', href: '/dashboard/currency', icon: FiPackage },
     { label: 'Users', href: '/dashboard/admin/users', icon: FiUsers },
     { label: 'Reports', href: '/dashboard/admin/reports', icon: FiFileText },
+    { label: 'My Profile', href: '/dashboard/profile', icon: FiUser },
     {
         label: 'My Wallet',
         href: '/dashboard/wallet',
