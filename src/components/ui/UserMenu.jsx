@@ -8,6 +8,7 @@ import {
     LuChevronDown,
     LuLayoutDashboard,
     LuHouse,
+    LuLoaderCircle,
 } from 'react-icons/lu';
 import { usePathname } from 'next/navigation';
 
@@ -119,7 +120,12 @@ export default function UserMenu() {
                             <LuLogOut className="h-4 w-4" />
                         </span>
 
-                        {isPending ? 'Logging out...' : 'Logout'}
+                        {isPending ?
+                            <span className='flex items-center justify-center' >
+                                <LuLoaderCircle className="h-5 w-5 animate-spin" />
+                                Logging Out
+                            </span>
+                            : 'Logout'}
                     </button>
                 </div>
             )}
