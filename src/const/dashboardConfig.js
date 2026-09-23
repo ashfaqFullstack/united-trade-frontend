@@ -24,7 +24,7 @@ export const sidebarItems = [
         href: '/dashboard',
         icon: FiHome,
     },
-    // { label: 'Currency Rates', href: '/dashboard/currency', icon: FiPackage },
+    { label: 'Currency Rates', href: '/dashboard/admin/currency', icon: FiPackage },
     { label: 'Users', href: '/dashboard/admin/users', icon: FiUsers },
     { label: 'Reports', href: '/dashboard/admin/reports', icon: FiFileText },
     { label: 'My Profile', href: '/dashboard/profile', icon: FiUser },
@@ -49,12 +49,14 @@ const adminSidebarHrefs = new Set([
     '/dashboard/admin/users',
     '/dashboard/wallet',
     '/dashboard/admin/reports',
+    '/dashboard/admin/currency',
     '/dashboard/orders'
 ]);
 
 const adminOnlySidebarHrefs = new Set([
     '/dashboard/admin/users',
     '/dashboard/admin/reports',
+    '/dashboard/admin/currency',
 ]);
 
 export const getSidebarItems = (isAdmin = false) => (

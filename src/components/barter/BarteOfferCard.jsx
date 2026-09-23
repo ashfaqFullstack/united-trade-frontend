@@ -18,7 +18,9 @@ function ListingThumb({ listing }) {
     );
 }
 
-export default function BarterOfferCard({ offer }) {
+export default function BarterOfferCard({ offer, mode = 'sent' }) {
+    const detailHref = `/dashboard/barter-offers/${offer.id}${mode === 'received' ? '?from=received' : ''}`;
+
     return (
         <div className="flex flex-wrap items-center gap-4 border-b border-slate-100 px-5 py-4 last:border-0">
             <ListingThumb listing={offer.offererListing} />
@@ -31,7 +33,7 @@ export default function BarterOfferCard({ offer }) {
                     <p className="mt-1 text-[11px] text-slate-400">{new Date(offer.createdAt).toLocaleDateString()}</p>
                 </div>
 
-                <Link href={`/dashboard/barter-offers/${offer.id}`} className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50">
+                <Link href={detailHref} className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50">
                     View Details
                 </Link>
             </div>

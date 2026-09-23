@@ -55,7 +55,7 @@ export default function UserDetailView({ userId }) {
             {
                 onSuccess: () => {
                     setApproveModalOpen(false);
-                    router.push('/dashboard');
+                    router.push('/dashboard/admin/users');
                 },
             }
         );
@@ -67,7 +67,7 @@ export default function UserDetailView({ userId }) {
             {
                 onSuccess: () => {
                     setRejectModalOpen(false);
-                    router.push('/dashboard');
+                    router.push('/dashboard/admin/users');
                 },
             }
         );

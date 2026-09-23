@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiRepeat } from 'react-icons/fi';
 import { getSidebarItems } from '@/const/dashboardConfig';
@@ -10,10 +10,14 @@ import Image from 'next/image';
 
 export default function DashboardSidebar({ isOpen, onClose, isAdmin }) {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
     const visibleSidebarItems = getSidebarItems(isAdmin);
-    const activeHref = visibleSidebarItems
+    const activeHrefFromPath = visibleSidebarItems
         .filter((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))
         .sort((first, second) => second.href.length - first.href.length)[0]?.href;
+    const activeHref = pathname.startsWith('/dashboard/barter-offers/') && searchParams.get('from') === 'received'
+        ? '/dashboard/barter-offers/received'
+        : activeHrefFromPath;
 
     return (
         <aside className={`fixed inset-y-0 left-0 z-[60] w-[280px] shrink-0 border-r border-slate-100 bg-white transition-transform duration-300 ease-out lg:static lg:z-auto lg:block lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>

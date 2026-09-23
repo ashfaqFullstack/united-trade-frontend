@@ -14,7 +14,7 @@ import { BUSINESS_CATEGORIES } from '@/const/const';
 const schema = z.object({
     businessName: z.string().min(1, 'Business name is required'),
     tradingName: z.string().optional(),
-    businessRegistrationNumber: z.string().optional(),
+    businessRegistrationNumber: z.string().min(1, "Please enter business Registration Number"),
     category: z.string().min(1, 'Please select a category'),
     website: z.string().optional(),
     country: z.string().min(1, 'Country is required'),
@@ -42,7 +42,7 @@ export default function BusinessDetailsStep({ onNext }) {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <TextInput label="Business Name" required placeholder="Example Company" error={errors.businessName?.message} {...register('businessName')} />
             <TextInput label="Trading Name (if different)" placeholder="Optional" {...register('tradingName')} />
-            <TextInput label="Business Registration Number" placeholder="Optional" {...register('businessRegistrationNumber')} />
+            <TextInput label="Business Registration Number" placeholder="REG NO" {...register('businessRegistrationNumber')} />
             <SelectInput label="Business Category" required options={BUSINESS_CATEGORIES} error={errors.category?.message} {...register('category')} />
             <TextInput label="Country" required placeholder="United States" error={errors.country?.message} {...register('country')} />
             <TextInput label="Website" placeholder="https://yourbusiness.com" {...register('website')} />

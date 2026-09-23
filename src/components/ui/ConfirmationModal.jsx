@@ -12,6 +12,7 @@ export default function ConfirmationModal({
     isLoading = false,
 }) {
     const isDelete = type === 'delete';
+    const isSave = type === 'save';
     const isResume = type === 'resume';
     const isEdit = type === 'edit';
     const isAccept = type === 'accept';
@@ -21,67 +22,75 @@ export default function ConfirmationModal({
 
     const title = isComplete
         ? 'Complete Order?'
-        : isAccept
-            ? 'Accept Barter Offer?'
-            : isReject
-                ? 'Reject Barter Offer?'
-                : isCancel
-                    ? 'Cancel Order?'
-                    : isEdit
-                        ? 'Edit Listing?'
-                        : isDelete
-                            ? 'Delete Listing?'
-                            : isResume
-                                ? 'Resume Listing?'
-                                : 'Pause Listing?';
+        : isSave
+            ? 'Save Currency Rate?'
+            : isAccept
+                ? 'Accept Barter Offer?'
+                : isReject
+                    ? 'Reject Barter Offer?'
+                    : isCancel
+                        ? 'Cancel Order?'
+                        : isEdit
+                            ? 'Edit Listing?'
+                            : isDelete
+                                ? 'Delete Listing?'
+                                : isResume
+                                    ? 'Resume Listing?'
+                                    : 'Pause Listing?';
 
     const description = isComplete
         ? `Are you sure you want to mark "${listingTitle}" as complete? This will release the funds to the seller.`
-        : isAccept
-            ? `Are you sure you want to accept the offer for "${listingTitle}"?`
-            : isReject
-                ? `Are you sure you want to reject the offer for "${listingTitle}"?`
-                : isCancel
-                    ? `Are you sure you want to cancel "${listingTitle}"? This action cannot be undone.`
-                    : isEdit
-                        ? `Are you sure you want to edit "${listingTitle}"?`
-                        : isDelete
-                            ? `Are you sure you want to delete "${listingTitle}"? This action cannot be undone.`
-                            : isResume
-                                ? `Are you sure you want to resume "${listingTitle}"?`
-                                : `Are you sure you want to pause "${listingTitle}"? It will no longer be visible to customers.`;
+        : isSave
+            ? `Are you sure you want to save the currency rate for "${listingTitle}"?`
+            : isAccept
+                ? `Are you sure you want to accept the offer for "${listingTitle}"?`
+                : isReject
+                    ? `Are you sure you want to reject the offer for "${listingTitle}"?`
+                    : isCancel
+                        ? `Are you sure you want to cancel "${listingTitle}"? This action cannot be undone.`
+                        : isEdit
+                            ? `Are you sure you want to edit "${listingTitle}"?`
+                            : isDelete
+                                ? `Are you sure you want to delete "${listingTitle}"? This action cannot be undone.`
+                                : isResume
+                                    ? `Are you sure you want to resume "${listingTitle}"?`
+                                    : `Are you sure you want to pause "${listingTitle}"? It will no longer be visible to customers.`;
 
     const confirmText = isComplete
         ? 'Yes, Complete'
-        : isAccept
-            ? 'Yes, Accept'
-            : isReject
-                ? 'Yes, Reject'
-                : isCancel
-                    ? 'Yes, Cancel'
-                    : isEdit
-                        ? 'Yes, Edit'
-                        : isDelete
-                            ? 'Yes, Delete'
-                            : isResume
-                                ? 'Yes, Resume'
-                                : 'Yes, Pause';
+        : isSave
+            ? 'Yes, Save'
+            : isAccept
+                ? 'Yes, Accept'
+                : isReject
+                    ? 'Yes, Reject'
+                    : isCancel
+                        ? 'Yes, Cancel'
+                        : isEdit
+                            ? 'Yes, Edit'
+                            : isDelete
+                                ? 'Yes, Delete'
+                                : isResume
+                                    ? 'Yes, Resume'
+                                    : 'Yes, Pause';
 
     const Icon = isComplete
         ? FiCheck
-        : isAccept
+        : isSave
             ? FiCheck
-            : isReject
-                ? FiXCircle
-                : isCancel
+            : isAccept
+                ? FiCheck
+                : isReject
                     ? FiXCircle
-                    : isEdit
-                        ? FiEdit2
-                        : isDelete
-                            ? FiTrash2
-                            : isResume
-                                ? FiPlay
-                                : FiPause;
+                    : isCancel
+                        ? FiXCircle
+                        : isEdit
+                            ? FiEdit2
+                            : isDelete
+                                ? FiTrash2
+                                : isResume
+                                    ? FiPlay
+                                    : FiPause;
 
     return (
         <AnimatePresence>
@@ -143,7 +152,7 @@ export default function ConfirmationModal({
                                     stiffness: 400,
                                     damping: 18,
                                 }}
-                                className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${isComplete || isAccept
+                                className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${isComplete || isAccept || isSave
                                     ? 'bg-emerald-50 text-emerald-600'
                                     : isReject || isCancel || isDelete
                                         ? 'bg-red-50 text-red-500'
@@ -183,7 +192,7 @@ export default function ConfirmationModal({
                                     type="button"
                                     onClick={onConfirm}
                                     disabled={isLoading}
-                                    className={`flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl px-4 text-sm font-semibold text-white shadow-lg transition-all disabled:cursor-not-allowed disabled:opacity-70 ${isComplete || isAccept || isResume
+                                    className={`flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl px-4 text-sm font-semibold text-white shadow-lg transition-all disabled:cursor-not-allowed disabled:opacity-70 ${isComplete || isAccept || isResume || isSave
                                         ? 'bg-emerald-600 shadow-emerald-600/20 hover:bg-emerald-700'
                                         : isReject || isCancel || isDelete
                                             ? 'bg-red-500 shadow-red-500/20 hover:bg-red-600'
@@ -209,7 +218,7 @@ export default function ConfirmationModal({
 
                         {/* Bottom accent */}
                         <div
-                            className={`h-1 w-full ${isComplete || isAccept || isResume
+                            className={`h-1 w-full ${isComplete || isAccept || isResume || isSave
                                 ? 'bg-emerald-500'
                                 : isReject || isCancel || isDelete
                                     ? 'bg-red-500'

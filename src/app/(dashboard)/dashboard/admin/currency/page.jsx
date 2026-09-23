@@ -4,9 +4,9 @@ import CurrencyRateTable from '@/components/Dashboard/Admin/currency/CurrencyRat
 import { SIDEBAR_FEATURES } from '@/const/const';
 
 export default function CurrencyRatesPage() {
-    if (!SIDEBAR_FEATURES.CURRENCY_RATES) {
-        notFound();
-    }
+    // if (!SIDEBAR_FEATURES.CURRENCY_RATES) {
+    //     notFound();
+    // }
 
     return (
         <div className="space-y-5">
