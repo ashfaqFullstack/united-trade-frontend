@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { LuLoaderCircle } from 'react-icons/lu';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import StatusBadge from '@/components/ui/StatusBadge';
+import { formatAddress } from '@/lib/formatAddress';
 
 export default function OrderCard({ order, mode = 'buyer', onComplete, onCancel, isCompleting, isCancelling }) {
     const counterpart = mode === 'buyer' ? order.seller : order.buyer;
@@ -44,6 +45,17 @@ export default function OrderCard({ order, mode = 'buyer', onComplete, onCancel,
                     <p className="text-xs text-slate-400">
                         {mode === 'buyer' ? 'Seller' : 'Buyer'}: {counterpart?.name}
                     </p>
+                    <p className="text-xs text-slate-400">{new Date(order.createdAt).toLocaleString()}</p>
+                </div>
+
+                <div className="min-w-[160px] flex-1">
+                    <p className="text-sm font-semibold text-slate-900">{order.listing?.title}</p>
+                    <p className="text-xs text-slate-400">
+                        {mode === 'buyer' ? 'Seller' : 'Buyer'}: {counterpart?.name}
+                    </p>
+                    {formatAddress(counterpart) && (
+                        <p className="text-xs text-slate-400">📍 {formatAddress(counterpart)}</p>
+                    )}
                     <p className="text-xs text-slate-400">{new Date(order.createdAt).toLocaleString()}</p>
                 </div>
 

@@ -9,6 +9,7 @@ import StatusBadge from '@/components/ui/StatusBadge';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import { useMyOrders, useReceivedOrders, useCompleteOrder, useCancelOrder } from '@/hooks/useOrder';
 import BackButton from '@/components/ui/BackButton';
+import { formatAddress } from '@/lib/formatAddress';
 
 const STEPS = ['ESCROW_HELD', 'COMPLETED'];
 
@@ -120,10 +121,12 @@ export default function OrderDetailPage() {
                     <div>
                         <dt className="text-xs text-slate-400">Buyer</dt>
                         <dd className="font-medium text-slate-800">{order.buyer?.name || 'You'}</dd>
+                        {formatAddress(order.buyer) && <dd className="text-xs text-slate-400">{formatAddress(order.buyer)}</dd>}
                     </div>
                     <div>
                         <dt className="text-xs text-slate-400">Seller</dt>
                         <dd className="font-medium text-slate-800">{order.seller?.name}</dd>
+                        {formatAddress(order.seller) && <dd className="text-xs text-slate-400">{formatAddress(order.seller)}</dd>}
                     </div>
                     <div>
                         <dt className="text-xs text-slate-400">Total Amount</dt>
@@ -134,6 +137,7 @@ export default function OrderDetailPage() {
                         <dd className="font-medium text-slate-800">{new Date(order.createdAt).toLocaleString()}</dd>
                     </div>
                 </dl>
+
             </div>
 
             <ConfirmationModal

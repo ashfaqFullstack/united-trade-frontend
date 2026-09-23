@@ -49,7 +49,7 @@ export default function CustomerDetailsStep({ onNext }) {
                 {...register('country')}
             />
             <TextInput label="City" required placeholder="e.g. New York" error={errors.city?.message} {...register('city')} />
-            <TextInput label="Address" placeholder="e.g. 123 Market Street" {...register('address')} />
+            <TextInput label="Address (Complete address where you receive products)" placeholder="e.g. 123 Market Street" {...register('address')} />
 
             <button
                 type="submit"

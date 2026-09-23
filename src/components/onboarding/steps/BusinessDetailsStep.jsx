@@ -47,7 +47,7 @@ export default function BusinessDetailsStep({ onNext }) {
             <TextInput label="Country" required placeholder="United States" error={errors.country?.message} {...register('country')} />
             <TextInput label="Website" placeholder="https://yourbusiness.com" {...register('website')} />
             <TextInput label="City" required placeholder="New York" error={errors.city?.message} {...register('city')} />
-            <TextInput label="Address" placeholder="Down Town, Street 5" {...register('address')} />
+            <TextInput label="Address (Complete Address where you receive products) " placeholder="Down Town, Street 5" {...register('address')} />
 
             <button type="submit" disabled={isPending} className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 disabled:opacity-60">
                 {isPending ?

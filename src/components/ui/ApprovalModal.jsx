@@ -40,7 +40,7 @@ export default function ApproveModal({ open, onClose, onConfirm, isPending }) {
                     className="flex-1 items-center justify-center text-center cursor-pointer rounded-xl bg-emerald-600 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-60"
                 >
                     {isPending ?
-                        <span>
+                        <span className='flex items-center justify-center gap-1' >
                             <LuLoaderCircle className="h-5 w-5 animate-spin" />
                             Confirm Approve
                         </span>
