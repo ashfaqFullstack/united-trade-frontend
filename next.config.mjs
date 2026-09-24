@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
+const apiUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, '');
+const backendUrl = apiUrl?.endsWith('/v1') ? apiUrl : `${apiUrl}/v1`;
+
 const nextConfig = {
   async rewrites() {
     return [
       {
         source: '/api/backend/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+        destination: `${backendUrl}/:path*`,
       },
     ];
   },

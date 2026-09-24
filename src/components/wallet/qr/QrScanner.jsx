@@ -11,14 +11,23 @@ const Scanner = dynamic(
 
 export default function QrScanner({ onScan }) {
     const handleScan = (result) => {
-        if (!result?.length) return;
+        const rawValue = result?.[0]?.rawValue;
+        if (!rawValue) return;
 
+        let receiverId;
         try {
-            const parsed = JSON.parse(result[0].rawValue);
-            if (parsed?.userId) onScan(parsed.userId);
+            const parsed = JSON.parse(rawValue);
+            receiverId = parsed?.userId;
         } catch {
-            // ignore invalid QR content
+            try {
+                const url = new URL(rawValue, window.location.origin);
+                receiverId = url.searchParams.get('receiverId');
+            } catch {
+                return;
+            }
         }
+
+        if (receiverId) onScan(receiverId);
     };
 
     return (
