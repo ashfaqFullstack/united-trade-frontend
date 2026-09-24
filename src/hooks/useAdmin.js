@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { getPendingUsers, getUserDetails, approveUser, rejectUser, fundAdminWallet } from '@/services/admin.service';
+import {
+    getPendingUsers, getUserDetails, approveUser, rejectUser, fundAdminWallet, getProfileUpdateRequests,
+    getProfileUpdateRequestDetail,
+    approveProfileUpdateRequest,
+    rejectProfileUpdateRequest,
+} from '@/services/admin.service';
 import { getAllUsers, blockUser, unblockUser } from '@/services/admin.service';
 
 export const usePendingUsers = (params, enabled = true) => {
@@ -78,6 +83,44 @@ export const useFundAdminWallet = () => {
             queryClient.invalidateQueries({ queryKey: ['companyAccount'] });
             queryClient.invalidateQueries({ queryKey: ['wallet'] });
             toast.success('Wallet funded successfully');
+        },
+    });
+};
+
+
+export const useProfileUpdateRequests = (status = 'PENDING') => {
+    return useQuery({
+        queryKey: ['profileUpdateRequests', status],
+        queryFn: () => getProfileUpdateRequests(status),
+    });
+};
+
+export const useProfileUpdateRequestDetail = (requestId) => {
+    return useQuery({
+        queryKey: ['profileUpdateRequest', requestId],
+        queryFn: () => getProfileUpdateRequestDetail(requestId),
+        enabled: !!requestId,
+    });
+};
+
+export const useApproveProfileUpdateRequest = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: approveProfileUpdateRequest,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['profileUpdateRequests'] });
+            toast.success('Profile update approved');
+        },
+    });
+};
+
+export const useRejectProfileUpdateRequest = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: rejectProfileUpdateRequest,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['profileUpdateRequests'] });
+            toast.success('Profile update rejected');
         },
     });
 };

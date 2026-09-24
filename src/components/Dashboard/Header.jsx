@@ -1,5 +1,6 @@
 'use client';
 
+import EnableNotificationsButton from '../layout/EnableNotificationsButton';
 import UserMenu from '../ui/UserMenu';
 import { FiMenu, FiX } from 'react-icons/fi';
 
@@ -20,6 +21,7 @@ export default function DashboardHeader({ isSidebarOpen, onMenuClick }) {
                 <div className="ml-auto  flex items-end justify-end gap-4 sm:gap-6">
                     {/* User */}
                     <UserMenu />
+                    <EnableNotificationsButton />
                 </div>
             </div>
         </header>

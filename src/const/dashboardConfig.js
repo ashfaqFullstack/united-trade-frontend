@@ -16,6 +16,7 @@ import {
     FiTag,
     FiPackage,
     FiFileText,
+    FiEdit3,
 } from 'react-icons/fi';
 
 export const sidebarItems = [
@@ -28,6 +29,7 @@ export const sidebarItems = [
     { label: 'Users', href: '/dashboard/admin/users', icon: FiUsers },
     { label: 'Reports', href: '/dashboard/admin/reports', icon: FiFileText },
     { label: 'My Profile', href: '/dashboard/profile', icon: FiUser },
+    { label: 'Profile Updates', href: '/dashboard/admin/profile-updates', icon: FiEdit3 },
     {
         label: 'My Wallet',
         href: '/dashboard/wallet',
@@ -50,13 +52,15 @@ const adminSidebarHrefs = new Set([
     '/dashboard/wallet',
     '/dashboard/admin/reports',
     '/dashboard/admin/currency',
-    '/dashboard/orders'
+    '/dashboard/orders',
+    '/dashboard/admin/profile-updates'
 ]);
 
 const adminOnlySidebarHrefs = new Set([
     '/dashboard/admin/users',
     '/dashboard/admin/reports',
     '/dashboard/admin/currency',
+    '/dashboard/admin/profile-updates'
 ]);
 
 export const getSidebarItems = (isAdmin = false) => (

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -10,6 +10,8 @@ import { BUSINESS_CATEGORIES } from '@/const/const';
 import SelectInput from '@/components/ui/SelectInput';
 import TextInput from '@/components/ui/TextInput';
 import Loading from '@/components/ui/Loading';
+import { useSubmitProfileUpdate } from '@/hooks/useProfileUpdate';
+import BusinessDocumentsManager from './BusinessDocumentManager';
 
 const schema = z.object({
     businessName: z.string().min(1, 'Business name is required'),
@@ -28,7 +30,12 @@ const schema = z.object({
 
 export default function BusinessProfileEditForm({ onCancel, onSaved }) {
     const { data: profile, isLoading } = useBusinessProfile();
-    const { mutate: saveProfile, isPending } = useCompleteBusinessProfile();
+    // const { mutate: saveProfile, isPending } = useCompleteBusinessProfile();
+    const { mutate: submitUpdate, isPending } = useSubmitProfileUpdate();
+    const [documentChanges, setDocumentChanges] = useState({
+        documentsToAdd: [],
+        documentIdsToRemove: [],
+    });
 
     const {
         register,
@@ -43,8 +50,9 @@ export default function BusinessProfileEditForm({ onCancel, onSaved }) {
 
     if (isLoading) return <Loading />;
 
-    const onSubmit = (data) => saveProfile(data, { onSuccess: onSaved });
-
+    const onSubmit = (data) => {
+        submitUpdate({ proposedData: data, ...documentChanges }, { onSuccess: () => onSaved?.() });
+    };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <TextInput label="Business Name" required error={errors.businessName?.message} {...register('businessName')} />
@@ -72,21 +80,25 @@ export default function BusinessProfileEditForm({ onCancel, onSaved }) {
                 </div>
             </div>
 
-            <button
-                type="submit"
-                disabled={isPending}
-                className="flex items-center cursor-pointer justify-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
-            >
-                {isPending && <LuLoaderCircle className="h-4 w-4 animate-spin" />}
-                Save Changes
-            </button>
-            <button
-                type="button"
-                onClick={onCancel}
-                className="ml-3 cursor-pointer rounded-xl border border-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
-            >
-                Cancel
-            </button>
+            <BusinessDocumentsManager existingDocuments={profile?.documents} onChange={setDocumentChanges} />
+
+            <div className="flex gap-3">
+                <button
+                    type="button"
+                    onClick={onCancel}
+                    className="rounded-xl border border-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+                >
+                    Cancel
+                </button>
+                <button
+                    type="submit"
+                    disabled={isPending}
+                    className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
+                >
+                    {isPending && <LuLoaderCircle className="h-4 w-4 animate-spin" />}
+                    Submit for Review
+                </button>
+            </div>
         </form>
     );
 }

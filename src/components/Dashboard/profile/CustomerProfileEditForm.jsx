@@ -8,6 +8,7 @@ import { LuLoaderCircle } from 'react-icons/lu';
 import { useCustomerProfile, useUpdateCustomerProfile } from '@/hooks/useCustomer';
 import Loading from '@/components/ui/Loading';
 import TextInput from '@/components/ui/TextInput';
+import { useSubmitProfileUpdate } from '@/hooks/useProfileUpdate';
 
 const schema = z.object({
     phone: z.string().min(1, 'Phone number is required'),
@@ -18,7 +19,9 @@ const schema = z.object({
 
 export default function CustomerProfileEditForm({ onCancel, onSaved }) {
     const { data: profile, isLoading } = useCustomerProfile();
-    const { mutate: saveProfile, isPending } = useUpdateCustomerProfile();
+    // const { mutate: saveProfile, isPending } = useUpdateCustomerProfile();
+    const { mutate: submitUpdate, isPending } = useSubmitProfileUpdate();
+
 
     const {
         register,
@@ -33,7 +36,9 @@ export default function CustomerProfileEditForm({ onCancel, onSaved }) {
 
     if (isLoading) return <Loading />;
 
-    const onSubmit = (data) => saveProfile(data, { onSuccess: onSaved });
+    const onSubmit = (data) => {
+        submitUpdate({ proposedData: data }, { onSuccess: () => onSaved?.() });
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -44,21 +49,23 @@ export default function CustomerProfileEditForm({ onCancel, onSaved }) {
             </div>
             <TextInput label="Address" {...register('address')} />
 
-            <button
-                type="submit"
-                disabled={isPending}
-                className="flex items-center justify-center cursor-pointer gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
-            >
-                {isPending && <LuLoaderCircle className="h-4 w-4 animate-spin" />}
-                Save Changes
-            </button>
-            <button
-                type="button"
-                onClick={onCancel}
-                className="ml-3 cursor-pointer rounded-xl border border-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
-            >
-                Cancel
-            </button>
+            <div className="flex gap-3">
+                <button
+                    type="button"
+                    onClick={onCancel}
+                    className="rounded-xl border border-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+                >
+                    Cancel
+                </button>
+                <button
+                    type="submit"
+                    disabled={isPending}
+                    className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
+                >
+                    {isPending && <LuLoaderCircle className="h-4 w-4 animate-spin" />}
+                    Submit for Review
+                </button>
+            </div>
         </form>
     );
 }
