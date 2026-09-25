@@ -18,7 +18,7 @@ export default function DashboardHeader({ isSidebarOpen, onMenuClick }) {
                 </button>
 
                 {/* Right */}
-                <div className="ml-auto  flex items-end justify-end gap-4 sm:gap-6">
+                <div className="ml-auto  flex items-end items-center justify-end gap-4 sm:gap-6">
                     {/* User */}
                     <UserMenu />
                     <EnableNotificationsButton />
