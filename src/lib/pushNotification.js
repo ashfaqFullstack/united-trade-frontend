@@ -23,3 +23,14 @@ export const registerPushNotifications = async () => {
 
     return subscription.toJSON();
 };
+
+export const getCurrentPushSubscription = async () => {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) return null;
+
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    const registration = registrations.find((item) => item.active) || registrations[0];
+    if (!registration) return null;
+
+    const subscription = await registration.pushManager.getSubscription();
+    return subscription?.toJSON() || null;
+};
