@@ -17,7 +17,7 @@ export default function EnableNotificationsButton() {
             title={isEnabled ? 'Notifications enabled' : 'Enable Notifications'}
             className={`flex items-center rounded-xl border px-3 py-2 text-sm font-medium transition disabled:opacity-60 ${isEnabled
                 ? 'border-yellow-200 text-yellow-500 hover:bg-yellow-50'
-                : 'gap-2 border-slate-200 text-slate-600 hover:bg-slate-50'
+                : 'md:gap-2 border-slate-200 text-slate-600 hover:bg-slate-50'
                 }`}
         >
             <IoNotifications className="h-4 w-4" />
