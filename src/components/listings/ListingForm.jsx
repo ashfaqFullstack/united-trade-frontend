@@ -10,6 +10,7 @@ import TextInput from '@/components/ui/TextInput';
 import SelectInput from '@/components/ui/SelectInput';
 import { BUSINESS_CATEGORIES } from '@/const/const';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useCurrencyRates } from '@/hooks/useCurrency';
 
 const schema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -22,9 +23,13 @@ export default function ListingForm({ defaultValues, onSubmit, isPending, submit
     const [imageUrls, setImageUrls] = useState(defaultValues?.imageUrls || []);
     const user = useAuthStore((state) => state.user);
     const [isPublic, setIsPublic] = useState(defaultValues?.isPublic ?? (user?.role === 'BUSINESS'));
+    const country = user?.country || user?.businessProfile?.country || user?.customerProfile?.country;
+    const { data: currencyRates } = useCurrencyRates(!!country);
+    const currencyRate = currencyRates?.find((rate) => rate.countryName === country);
 
     const {
         register,
+        watch,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -36,6 +41,9 @@ export default function ListingForm({ defaultValues, onSubmit, isPending, submit
             category: defaultValues?.category || '',
         },
     });
+
+    const price = Number(watch('price')) || 0;
+    const convertedPrice = currencyRate ? price * Number(currencyRate.rate) : 0;
 
     const handleFormSubmit = (data) => {
         onSubmit({ ...data, price: Number(data.price), imageUrls, isPublic });
@@ -60,14 +68,30 @@ export default function ListingForm({ defaultValues, onSubmit, isPending, submit
                     error={errors.category?.message}
                     {...register('category')}
                 />
-                <TextInput
-                    label="Price (Trade Dollars)"
-                    required
-                    type="number"
-                    placeholder="e.g. 250"
-                    error={errors.price?.message}
-                    {...register('price')}
-                />
+                <div>
+                    {currencyRate && (
+                        <div className="mb-1.5 rounded-lg bg-blue-50 px-3 py-2 text-xs text-blue-700">
+                            <p>
+                                1 Trade Dollar = {currencyRate.currencySymbol}{Number(currencyRate.rate).toLocaleString()}{' '}
+                                ({currencyRate.currencyCode})
+                            </p>
+                            {price > 0 && (
+                                <p className="mt-0.5 font-semibold">
+                                    {price.toLocaleString()} Trade Dollars = {currencyRate.currencySymbol}
+                                    {convertedPrice.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                                </p>
+                            )}
+                        </div>
+                    )}
+                    <TextInput
+                        label="Price (Trade Dollars)"
+                        required
+                        type="number"
+                        placeholder="e.g. 250"
+                        error={errors.price?.message}
+                        {...register('price')}
+                    />
+                </div>
             </div>
 
             <ListingImageUploader value={imageUrls} onChange={setImageUrls} />
