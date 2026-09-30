@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatMoney } from '@/lib/currency';
 import { useState } from 'react';
 import { useFeeLogs } from '@/hooks/useReports';
 import Loading from '@/components/ui/Loading';
@@ -76,7 +78,7 @@ export default function FeeLogsTable() {
                                 >
                                     {TYPE_LABELS[log.type]}
                                 </span>
-                                <span className="font-semibold text-slate-800">${Number(log.amount).toLocaleString()}</span>
+                                <span className="font-semibold text-slate-800">{formatMoney(log.amount, 'USD')}</span>
                                 <span className="hidden text-slate-400 sm:block">{new Date(log.createdAt).toLocaleDateString()}</span>
                             </div>
                         ))}

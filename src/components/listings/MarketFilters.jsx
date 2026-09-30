@@ -1,5 +1,7 @@
+
 'use client';
 
+import { useMyCurrency } from '@/hooks/useCurrency';
 import { BUSINESS_CATEGORIES } from '@/const/const';
 import { useState } from 'react';
 
@@ -8,6 +10,7 @@ export default function MarketplaceFilters({ onApply }) {
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [country, setCountry] = useState('');
+    const { data: myCurrency } = useMyCurrency();
 
     const apply = () => {
         onApply({
@@ -46,7 +49,7 @@ export default function MarketplaceFilters({ onApply }) {
                 </div>
 
                 <div>
-                    <label className="mb-1.5 block text-xs font-medium text-slate-500">Price Range</label>
+                    <label className="mb-1.5 block text-xs font-medium text-slate-500">Price Range ({myCurrency?.currencyCode || 'USD'})</label>
                     <div className="flex items-center gap-2">
                         <input
                             type="number"

@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatMoney } from '@/lib/currency';
 import { useState } from 'react';
 import { useAllTransactions } from '@/hooks/useReports';
 import Pagination from '@/components/layout/Pagination';
@@ -45,9 +47,9 @@ export default function AllTransactionsTable() {
                                     <p className="truncate font-medium text-slate-900">{t.receiver?.name}</p>
                                     <p className="truncate text-xs text-slate-400">{t.receiver?.email}</p>
                                 </div>
-                                <span className="font-semibold text-slate-800">${Number(t.amount).toLocaleString()}</span>
+                                <span className="font-semibold text-slate-800">{formatMoney(t.amount, 'USD')}</span>
                                 <span className="text-slate-500">
-                                    ${(Number(t.commissionBuyer) + Number(t.commissionSeller)).toLocaleString()}
+                                    {formatMoney(Number(t.commissionBuyer) + Number(t.commissionSeller), 'USD')}
                                 </span>
                                 <span className="hidden text-slate-400 sm:block">
                                     {new Date(t.createdAt).toLocaleDateString()}

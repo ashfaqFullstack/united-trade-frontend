@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatMoney } from '@/lib/currency';
 import Link from 'next/link';
 import { FiUsers, FiTag, FiRepeat, FiDollarSign, FiArrowRight, FiClock } from 'react-icons/fi';
 import { useDashboardStats } from '@/hooks/useReports';
@@ -37,8 +39,9 @@ export default function AdminOverview() {
                             <card.icon className="h-4.5 w-4.5" />
                         </span>
                         <p className="mt-3 text-xl font-bold text-slate-900">
-                            {card.isCurrency ? '$' : ''}
-                            {Number(stats?.[card.key] ?? 0).toLocaleString()}
+                            {card.isCurrency
+                                ? formatMoney(stats?.[card.key] ?? 0, 'USD')
+                                : Number(stats?.[card.key] ?? 0).toLocaleString()}
                         </p>
                         <p className="mt-1 text-xs text-slate-400">{card.label}</p>
                     </div>

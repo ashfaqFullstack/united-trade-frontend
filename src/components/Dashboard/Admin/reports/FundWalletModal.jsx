@@ -1,5 +1,8 @@
+
 'use client';
 
+
+import { formatMoney } from '@/lib/currency';
 import { useState } from 'react';
 import { LuLoaderCircle } from 'react-icons/lu';
 import { useFundAdminWallet } from '@/hooks/useAdmin';
@@ -23,12 +26,12 @@ export default function FundWalletModal({ open, onClose, companyBalance }) {
     return (
         <Modal open={open} onClose={handleClose} title="Fund My Wallet">
             <p className="text-sm text-slate-500">
-                Transfer trade dollars from the Company Account into your personal wallet, so you can purchase
+                Transfer funds (USD) from the Company Account into your personal wallet, so you can purchase
                 listings on the marketplace.
             </p>
 
             <div className="mt-4">
-                <label className="mb-1.5 block text-sm font-medium text-slate-700">Amount</label>
+                <label className="mb-1.5 block text-sm font-medium text-slate-700">Amount (USD)</label>
                 <input
                     type="number"
                     placeholder="e.g. 500"
@@ -37,7 +40,7 @@ export default function FundWalletModal({ open, onClose, companyBalance }) {
                     className="w-full rounded-xl border text-black border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 />
                 <p className="mt-1 text-xs text-slate-400">
-                    Available in Company Account: ${Number(companyBalance ?? 0).toLocaleString()}
+                    Available in Company Account: {formatMoney(companyBalance ?? 0, 'USD')}
                 </p>
             </div>
 

@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatDisplay } from '@/lib/currency';
 import { useState } from 'react';
 import Link from 'next/link';
 import { LuLoaderCircle } from 'react-icons/lu';
@@ -60,7 +62,7 @@ export default function OrderCard({ order, mode = 'buyer', onComplete, onCancel,
                 </div> */}
 
                 <div className="text-right">
-                    <p className="text-sm font-bold text-slate-900">${Number(order.amount).toLocaleString()}</p>
+                    <p className="text-sm font-bold text-slate-900">{formatDisplay(order, 'amount')}</p>
                     <p className="text-[10px] uppercase tracking-wide text-slate-400">Trade Value</p>
                 </div>
 

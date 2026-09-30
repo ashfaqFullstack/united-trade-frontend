@@ -1,5 +1,6 @@
 'use client';
 
+import { formatDisplay } from '@/lib/currency';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -72,7 +73,7 @@ export default function ListingDetail() {
                             {listing.status === 'ACTIVE' ? 'Active' : 'Paused'}
                         </span>
                     </div>
-                    <p className="mt-2 text-3xl font-bold text-blue-600">${Number(listing.price).toLocaleString()}</p>
+                    <p className="mt-2 text-3xl font-bold text-blue-600">{formatDisplay(listing, 'price')}</p>
 
                     <div className="mt-6 rounded-2xl border border-slate-100 bg-white p-5">
                         <h3 className="mb-2 text-sm font-bold text-slate-900">Description</h3>

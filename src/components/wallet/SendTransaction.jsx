@@ -1,5 +1,9 @@
+
 'use client';
 
+import ReceiverPreview from './ReceiverPreview';
+import { formatMoney } from '@/lib/currency';
+import { useMyCurrency } from '@/hooks/useCurrency';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { useSendTransaction } from '@/hooks/useTransaction';
@@ -14,6 +18,8 @@ export default function SendTransactionCard({ initialReceiverId }) {
     const [result, setResult] = useState(null);
 
     const { mutate: send, isPending } = useSendTransaction();
+    const { data: myCurrency } = useMyCurrency();
+    const currencyCode = myCurrency?.currencyCode || 'USD';
 
     const handleScan = (userId) => {
         setReceiverId(userId);
@@ -66,7 +72,7 @@ export default function SendTransactionCard({ initialReceiverId }) {
                     onChange={setPin}
                     error={error}
                     title="Enter Your Wallet PIN"
-                    subtitle={`Confirm sending $${amount}`}
+                    subtitle={`Confirm sending ${formatMoney(amount, currencyCode)}`}
                     onSubmit={(val) =>
                         send(
                             { receiverId, amount: Number(amount), pin: val },
@@ -102,7 +108,9 @@ export default function SendTransactionCard({ initialReceiverId }) {
                 {step === 'amount' && (
                     <>
                         <p className="text-center text-sm font-semibold text-slate-700">Enter Amount</p>
-                        <p className="mt-1 text-center text-xs text-slate-400">A 5% fee applies from both sides.</p>
+                        <p className="mt-1 text-center text-xs text-slate-400">
+                            Enter the amount in your currency ({currencyCode}). A 5% fee applies from both sides.
+                        </p>
                         <input
                             type="number"
                             placeholder="0.00"
@@ -111,6 +119,7 @@ export default function SendTransactionCard({ initialReceiverId }) {
                             autoFocus
                             className="mt-5 w-full rounded-xl border border-slate-200 px-4 py-3 text-center text-2xl font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                         />
+                        <ReceiverPreview receiverId={receiverId} amount={amount} />
                         <button
                             type="button"
                             onClick={handleAmountNext}

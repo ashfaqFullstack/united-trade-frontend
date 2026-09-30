@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -30,7 +31,8 @@ export default function TransactionHistoryPreview({ limit = 3 }) {
                                 type={isSender ? 'sent' : 'received'}
                                 title={isSender ? `Money Sent` : `Money Received`}
                                 subtitle={isSender ? `To ${t.receiver.name}` : `From ${t.sender.name}`}
-                                amount={t.amount}
+                                amount={t.display?.amount ?? t.amount}
+                                currency={t.display?.currency}
                                 date={new Date(t.createdAt).toLocaleDateString()}
                             />
                         );

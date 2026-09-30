@@ -1,3 +1,5 @@
+
+import { formatMoney } from '@/lib/currency';
 import {
     FiHome,
     FiRepeat,
@@ -25,7 +27,6 @@ export const sidebarItems = [
         href: '/dashboard',
         icon: FiHome,
     },
-    { label: 'Currency Rates', href: '/dashboard/admin/currency', icon: FiPackage },
     { label: 'Users', href: '/dashboard/admin/users', icon: FiUsers },
     { label: 'Reports', href: '/dashboard/admin/reports', icon: FiFileText },
     { label: 'My Profile', href: '/dashboard/profile', icon: FiUser },
@@ -51,7 +52,6 @@ const adminSidebarHrefs = new Set([
     '/dashboard/admin/users',
     '/dashboard/wallet',
     '/dashboard/admin/reports',
-    '/dashboard/admin/currency',
     '/dashboard/orders',
     '/dashboard/admin/profile-updates'
 ]);
@@ -59,7 +59,6 @@ const adminSidebarHrefs = new Set([
 const adminOnlySidebarHrefs = new Set([
     '/dashboard/admin/users',
     '/dashboard/admin/reports',
-    '/dashboard/admin/currency',
     '/dashboard/admin/profile-updates'
 ]);
 
@@ -76,8 +75,12 @@ export const getDashboardRoutes = ({
     pendingCount,
     walletBalance = 0,
     creditLimit = 0,
+    availableBalance: availableFromApi,
+    currency = 'USD',
 }) => {
-    const availableBalance = Number(walletBalance) + Number(creditLimit);
+    // walletBalance / creditLimit / availableBalance arrive already converted to the user's currency.
+    const availableBalance = availableFromApi ?? Number(walletBalance) + Number(creditLimit);
+    const money = (value) => formatMoney(value, currency);
 
     return {
         '/dashboard': {
@@ -94,8 +97,8 @@ export const getDashboardRoutes = ({
             stats: isAdmin
                 ? [{ label: 'Pending Approvals', value: String(pendingCount), icon: FiUsers }]
                 : [
-                    { label: 'Wallet Balance', value: `$${Number(walletBalance).toLocaleString()}`, icon: FiCreditCard },
-                    { label: 'Available Credit', value: `$${availableBalance.toLocaleString()}`, icon: FiTrendingUp },
+                    { label: 'Wallet Balance', value: money(walletBalance), icon: FiCreditCard },
+                    { label: 'Available Credit', value: money(availableBalance), icon: FiTrendingUp },
                     { label: 'Profile Strength', value: isProfileComplete ? '100%' : '50%', icon: FiUser },
                 ],
 
@@ -103,26 +106,26 @@ export const getDashboardRoutes = ({
         },
 
         '/dashboard/wallet': {
-            eyebrow: 'Manage your trade dollars',
+            eyebrow: 'Manage your balance',
             title: 'My Wallet',
             description: 'View your balance, send money, and track every transaction in one place.',
             icon: FiCreditCard,
             iconBg: 'from-blue-500 to-blue-700',
-            badge: `$${Number(walletBalance).toLocaleString()} Balance`,
+            badge: `${money(walletBalance)} Balance`,
             badgeIcon: FiCreditCard,
 
             stats: [
-                { label: 'Wallet Balance', value: `$${Number(walletBalance).toLocaleString()}`, icon: FiCreditCard },
-                { label: 'Credit Limit', value: `$${Number(creditLimit).toLocaleString()}`, icon: FiTrendingUp },
-                { label: 'Available Balance', value: `$${availableBalance.toLocaleString()}`, icon: FiCheckCircle },
+                { label: 'Wallet Balance', value: money(walletBalance), icon: FiCreditCard },
+                { label: 'Credit Limit', value: money(creditLimit), icon: FiTrendingUp },
+                { label: 'Available Balance', value: money(availableBalance), icon: FiCheckCircle },
             ],
 
         },
 
         '/dashboard/wallet/send': {
-            eyebrow: 'Trade dollars, instantly',
+            eyebrow: 'Payments, instantly',
             title: 'Send Money',
-            description: 'Scan a QR code or enter recipient details to transfer trade dollars securely.',
+            description: 'Scan a QR code or enter recipient details to transfer money securely.',
             icon: FiSend,
             iconBg: 'from-indigo-500 to-purple-600',
             badge: 'Send',
@@ -132,7 +135,7 @@ export const getDashboardRoutes = ({
         },
 
         '/dashboard/wallet/qr': {
-            eyebrow: 'Receive trade dollars',
+            eyebrow: 'Receive payments',
             title: 'Your QR Code',
             description: "Share your QR code so others can scan it and send you money directly.",
             icon: FiCamera,
@@ -146,7 +149,7 @@ export const getDashboardRoutes = ({
         '/dashboard/wallet/history': {
             eyebrow: 'Your activity',
             title: 'Transaction History',
-            description: 'Track every trade dollar you\'ve sent and received on the platform.',
+            description: 'Track every payment you\'ve sent and received on the platform.',
             icon: FiClock,
             iconBg: 'from-slate-600 to-slate-800',
             badge: 'History',

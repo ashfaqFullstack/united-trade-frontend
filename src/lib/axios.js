@@ -2,6 +2,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { useAuthStore } from '@/store/useAuthStore';
 import { queryClient } from '@/lib/queryClient';
+import { markActivity } from './activityTracker';
 
 const api = axios.create({
     // baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -30,7 +31,10 @@ let isRefreshing = false;
 let pendingRequests = [];
 
 api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        markActivity();
+        return response;
+    },
     async (error) => {
         const originalRequest = error.config;
         const isAuthEndpoint = originalRequest?.url?.includes('/auth/');

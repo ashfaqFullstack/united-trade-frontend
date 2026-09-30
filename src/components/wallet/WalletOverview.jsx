@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatMoney } from '@/lib/currency';
 import { useRouter } from 'next/navigation';
 import { FiEye, FiSend, FiCamera as FiScanQr, FiUsers, FiPlusCircle } from 'react-icons/fi';
 import { useMyWallet } from '@/hooks/useWallet';
@@ -32,7 +34,10 @@ export default function WalletOverview() {
 
     const tier = profile?.membershipTier ? TIER_META[profile.membershipTier] : TIER_META.STANDARD;
 
-    const available = Number(wallet.balance) + Number(wallet.creditLimit);
+    const currency = wallet.display?.currency || 'USD';
+    const balance = wallet.display?.balance ?? wallet.balance;
+    const creditLimit = wallet.display?.creditLimit ?? wallet.creditLimit;
+    const available = wallet.display?.availableBalance ?? Number(balance) + Number(creditLimit);
 
     return (
         <div className="space-y-5">
@@ -43,16 +48,16 @@ export default function WalletOverview() {
                     Total Balance
                     <FiEye className="h-3.5 w-3.5" />
                 </div>
-                <p className="mt-2 text-3xl font-bold">${Number(wallet.balance).toLocaleString()}</p>
+                <p className="mt-2 text-3xl font-bold">{formatMoney(balance, currency)}</p>
 
                 <div className="mt-5 grid grid-cols-2 gap-3">
                     <div className="rounded-xl bg-white/10 p-3">
                         <p className="text-[11px] text-white/70">Available Balance</p>
-                        <p className="mt-1 text-lg font-bold">${available.toLocaleString()}</p>
+                        <p className="mt-1 text-lg font-bold">{formatMoney(available, currency)}</p>
                     </div>
                     <div className="rounded-xl bg-white/10 p-3">
                         <p className="text-[11px] text-white/70">Credit Limit</p>
-                        <p className="mt-1 text-lg font-bold">${Number(wallet.creditLimit).toLocaleString()}</p>
+                        <p className="mt-1 text-lg font-bold">{formatMoney(creditLimit, currency)}</p>
                     </div>
                 </div>
             </div>

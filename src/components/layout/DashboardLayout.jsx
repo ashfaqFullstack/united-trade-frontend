@@ -33,8 +33,10 @@ export default function DashboardLayout({ children }) {
         isProfileComplete,
         isAdmin,
         pendingCount: pendingData?.totalResults ?? 0,
-        walletBalance: wallet?.balance ?? 0,
-        creditLimit: wallet?.creditLimit ?? 0,
+        walletBalance: wallet?.display?.balance ?? wallet?.balance ?? 0,
+        creditLimit: wallet?.display?.creditLimit ?? wallet?.creditLimit ?? 0,
+        availableBalance: wallet?.display?.availableBalance,
+        currency: wallet?.display?.currency || 'USD',
     });
 
     const routeKey = dashboardRoutes[pathname] ? pathname : '/dashboard';

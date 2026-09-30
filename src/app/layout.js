@@ -3,6 +3,7 @@ import "./globals.css";
 import Providers from "@/providers/Providers";
 import { Toaster } from 'sonner';
 import SessionProvider from "@/providers/SessionProvider";
+import IdleLogoutWatcher from "@/providers/IdleLogoutWatcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <Providers>
           <SessionProvider>
+            <IdleLogoutWatcher />
             {children}
           </SessionProvider>
         </Providers>

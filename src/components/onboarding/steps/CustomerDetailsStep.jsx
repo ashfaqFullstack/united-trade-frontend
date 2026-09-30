@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 
 import TextInput from '../../ui/TextInput';
 import { useCompleteCustomerProfile } from '@/hooks/useCustomer';
+import CountrySelect from '@/components/ui/CountrySelect';
 
 const schema = z.object({
     phone: z.string().min(1, 'Phone number is required'),
@@ -41,13 +42,7 @@ export default function CustomerDetailsStep({ onNext }) {
                 error={errors.phone?.message}
                 {...register('phone')}
             />
-            <TextInput
-                label="Country"
-                required
-                placeholder="e.g. United States"
-                error={errors.country?.message}
-                {...register('country')}
-            />
+            <CountrySelect label="Country" required error={errors.country?.message} {...register('country')} />
             <TextInput label="City" required placeholder="e.g. New York" error={errors.city?.message} {...register('city')} />
             <TextInput label="Address (Complete address where you receive products)" placeholder="e.g. 123 Market Street" {...register('address')} />
 

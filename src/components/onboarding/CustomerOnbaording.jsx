@@ -6,7 +6,6 @@ import OnboardingLayout from '../layout/OnboardingLayout';
 import CustomerDetailsStep from './steps/CustomerDetailsStep';
 import SuccessStep from './SuccessStep';
 import { steps } from '@/const/const';
-import CustomerMembershipStep from './steps/CustomerMemberShipStep';
 
 export default function CustomerOnboarding() {
     const [step, setStep] = useState(1);
@@ -28,8 +27,7 @@ export default function CustomerOnboarding() {
                     transition={{ duration: 0.2 }}
                 >
                     {step === 1 && <CustomerDetailsStep onNext={() => setStep(2)} />}
-                    {step === 2 && <CustomerMembershipStep onNext={() => setStep(3)} />}
-                    {step === 3 && <SuccessStep />}
+                    {step === 2 && <SuccessStep />}
                 </motion.div>
             </AnimatePresence>
         </OnboardingLayout>

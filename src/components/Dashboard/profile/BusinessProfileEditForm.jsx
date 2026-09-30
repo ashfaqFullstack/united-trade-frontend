@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -13,19 +14,28 @@ import Loading from '@/components/ui/Loading';
 import { useSubmitProfileUpdate } from '@/hooks/useProfileUpdate';
 import BusinessDocumentsManager from './BusinessDocumentManager';
 
+const digitsOnly = z.string().regex(/^[0-9 ]*$/, 'Only digits and spaces are allowed').optional();
+
 const schema = z.object({
     businessName: z.string().min(1, 'Business name is required'),
-    tradingName: z.string().optional(),
-    businessRegistrationNumber: z.string().optional(),
-    category: z.string().min(1, 'Please select a category'),
-    website: z.string().optional(),
-    phone: z.string().min(1, 'Phone number is required'),
-    country: z.string().min(1, 'Country is required'),
+    acn: digitsOnly,
+    abn: digitsOnly,
+    streetNumber: z.string().min(1, 'Number is required'),
+    streetName: z.string().min(1, 'Street name is required'),
     city: z.string().min(1, 'City is required'),
-    address: z.string().optional(),
-    secondaryContactName: z.string().optional(),
-    secondaryContactPhone: z.string().optional(),
-    secondaryContactEmail: z.string().optional(),
+    state: z.string().min(1, 'State is required'),
+    postcode: z.string().min(1, 'Post/Zip code is required'),
+    country: z.string().min(1, 'Country is required'),
+    phone: z.string().min(1, 'Business phone is required'),
+    mobile: z.string().min(1, 'Mobile number is required'),
+    website: z
+        .string()
+        .optional()
+        .refine((v) => !v || /^https?:\/\//i.test(v), 'Enter a full URL starting with http:// or https://'),
+    socialLinks: z.string().optional(),
+    category: z.string().min(1, 'Please select an industry / category'),
+    productsServices: z.string().min(1, 'Please describe the products or services you offer'),
+    yearsInBusiness: z.coerce.number().int('Enter a whole number').min(0, 'Cannot be negative').max(200),
 });
 
 export default function BusinessProfileEditForm({ onCancel, onSaved }) {
@@ -56,27 +66,42 @@ export default function BusinessProfileEditForm({ onCancel, onSaved }) {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <TextInput label="Business Name" required error={errors.businessName?.message} {...register('businessName')} />
-            <TextInput label="Trading Name" {...register('tradingName')} />
-            <TextInput label="Business Registration Number" {...register('businessRegistrationNumber')} />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <SelectInput label="Category" required options={BUSINESS_CATEGORIES} error={errors.category?.message} {...register('category')} />
-                <TextInput label="Website" {...register('website')} />
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TextInput label="Phone Number" required error={errors.phone?.message} {...register('phone')} />
-                <TextInput label="Country" required error={errors.country?.message} {...register('country')} />
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TextInput label="City" required error={errors.city?.message} {...register('city')} />
-                <TextInput label="Address" {...register('address')} />
+                <TextInput label="ACN" error={errors.acn?.message} {...register('acn')} />
+                <TextInput label="ABN" error={errors.abn?.message} {...register('abn')} />
             </div>
 
             <div className="border-t border-slate-100 pt-4">
-                <p className="mb-3 text-xs font-semibold text-slate-400">Secondary Contact (Optional)</p>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                    <TextInput label="Name" {...register('secondaryContactName')} />
-                    <TextInput label="Phone" {...register('secondaryContactPhone')} />
-                    <TextInput label="Email" {...register('secondaryContactEmail')} />
+                <p className="mb-3 text-xs font-semibold text-slate-400">Business Address</p>
+                <div className="space-y-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                        <TextInput label="Number" required error={errors.streetNumber?.message} {...register('streetNumber')} />
+                        <div className="sm:col-span-2">
+                            <TextInput label="Street Name" required error={errors.streetName?.message} {...register('streetName')} />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                        <TextInput label="City" required error={errors.city?.message} {...register('city')} />
+                        <TextInput label="State" required error={errors.state?.message} {...register('state')} />
+                        <TextInput label="Post/Zip Code" required error={errors.postcode?.message} {...register('postcode')} />
+                    </div>
+                </div>
+            </div>
+
+            {/* <TextInput label="Country" required error={errors.country?.message} {...register('country')} /> */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <TextInput label="Business Phone" required error={errors.phone?.message} {...register('phone')} />
+                <TextInput label="Cell/Mobile Number" required error={errors.mobile?.message} {...register('mobile')} />
+            </div>
+            <TextInput label="Website" error={errors.website?.message} {...register('website')} />
+            <TextInput label="Social Media Links" textarea {...register('socialLinks')} />
+
+            <div className="border-t border-slate-100 pt-4">
+                <p className="mb-3 text-xs font-semibold text-slate-400">Business Information</p>
+                <div className="space-y-4">
+                    <SelectInput label="Industry / Category" required options={BUSINESS_CATEGORIES} error={errors.category?.message} {...register('category')} />
+                    <TextInput label="Products or Services Offered" required textarea error={errors.productsServices?.message} {...register('productsServices')} />
+                    <TextInput label="Years in Business" required type="number" min="0" error={errors.yearsInBusiness?.message} {...register('yearsInBusiness')} />
                 </div>
             </div>
 

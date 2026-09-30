@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatMoney } from '@/lib/currency';
 import { useState } from 'react';
 import { FiDollarSign, FiTrendingUp } from 'react-icons/fi';
 import { useCompanyAccount } from '@/hooks/useReports';
@@ -27,7 +29,7 @@ export default function CompanyAccountCard() {
                     Fund My Wallet
                 </button>
             </div>
-            <p className="mt-3 text-3xl font-bold">${Number(account?.totalBalance ?? 0).toLocaleString()}</p>
+            <p className="mt-3 text-3xl font-bold">{formatMoney(account?.totalBalance ?? 0, 'USD')}</p>
             <p className="mt-2 flex items-center gap-1.5 text-xs text-white/70">
                 <FiTrendingUp className="h-3.5 w-3.5" />
                 Accumulated from trade commissions and membership fees

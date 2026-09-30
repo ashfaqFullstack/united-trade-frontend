@@ -1,3 +1,4 @@
+
 import { useAuthStore } from "@/store/useAuthStore";
 import { useBusinessProfile } from "./useBusiness";
 import { useCustomerProfile } from "./useCustomer";
@@ -19,14 +20,16 @@ export const useProfileCompletion = (enabled = true) => {
         const hasProfile = !!businessQuery.data;
         const docs = businessQuery.data?.documents || [];
         const hasBothDocs = docs.some((d) => d.fileType === 'PHOTO_ID') && docs.some((d) => d.fileType === 'PROOF_OF_ADDRESS');
+        const hasTier = !!businessQuery.data?.membershipTier;
+        const hasDeclared = !!businessQuery.data?.declarationAccepted;
         return {
-            isComplete: hasProfile && hasBothDocs,
+            isComplete: hasProfile && hasBothDocs && hasTier && hasDeclared,
             isLoading: businessQuery.isLoading,
         };
     }
 
     return {
-        isComplete: !!customerQuery.data && !!customerQuery.data.membershipTier,
+        isComplete: !!customerQuery.data,
         isLoading: customerQuery.isLoading,
     };
 };

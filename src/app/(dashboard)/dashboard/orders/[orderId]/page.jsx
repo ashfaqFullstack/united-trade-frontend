@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatDisplay } from '@/lib/currency';
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiCheck } from 'react-icons/fi';
@@ -58,7 +60,7 @@ export default function OrderDetailPage() {
                         </div>
                         <div>
                             <p className="font-semibold text-slate-900">{order.listing?.title}</p>
-                            <p className="text-sm text-slate-400">${Number(order.amount).toLocaleString()} Trade Value</p>
+                            <p className="text-sm text-slate-400">{formatDisplay(order, 'amount')} Total</p>
                         </div>
                     </div>
                     <StatusBadge status={order.status} />
@@ -130,7 +132,7 @@ export default function OrderDetailPage() {
                     </div>
                     <div>
                         <dt className="text-xs text-slate-400">Total Amount</dt>
-                        <dd className="font-medium text-slate-800">${Number(order.amount).toLocaleString()}</dd>
+                        <dd className="font-medium text-slate-800">{formatDisplay(order, 'amount')}</dd>
                     </div>
                     <div>
                         <dt className="text-xs text-slate-400">Date</dt>

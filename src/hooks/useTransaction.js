@@ -1,3 +1,4 @@
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { getMyQrCode, sendTransaction, getReceipt, getMyTransactions } from '@/services/transaction.service';
@@ -16,7 +17,7 @@ export const useSendTransaction = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['wallet'] });
             queryClient.invalidateQueries({ queryKey: ['myTransactions'] });
-            toast.success('Trade dollars sent successfully!');
+            toast.success('Payment sent successfully!');
         },
     });
 };

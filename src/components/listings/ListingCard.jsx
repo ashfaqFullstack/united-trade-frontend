@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatDisplay } from '@/lib/currency';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -279,7 +281,7 @@ export default function ListingCard({
                         </p>
 
                         <p className="mt-0.5 text-lg font-extrabold tracking-tight text-indigo-600 sm:text-xl">
-                            ${Number(listing.price).toLocaleString()}
+                            {formatDisplay(listing, 'price')}
                         </p>
                     </div>
 

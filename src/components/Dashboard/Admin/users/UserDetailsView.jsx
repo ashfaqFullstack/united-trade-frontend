@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -23,6 +24,7 @@ import Loading from '@/components/ui/Loading';
 import DetailItem from '@/components/ui/DetailItem';
 import { DOCUMENT_LABELS, TIER_META } from '@/const/const';
 import RejectModal from '../Modals/RejectModal';
+import { formatBusinessAddress } from '@/lib/formatAddress';
 
 export default function UserDetailView({ userId }) {
     const router = useRouter();
@@ -146,13 +148,19 @@ export default function UserDetailView({ userId }) {
                             <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 {isBusiness ? (
                                     <>
-                                        <DetailItem icon={FiUser} label="Trading Name" value={profile.tradingName} />
-                                        <DetailItem icon={FiHash} label="Registration Number" value={profile.businessRegistrationNumber} />
-                                        <DetailItem icon={FiWebsite} label="Category" value={profile.category} />
+                                        <DetailItem icon={FiUser} label="Full Name" value={user.name} />
+                                        <DetailItem icon={FiMail} label="Email" value={user.email} />
+                                        <DetailItem icon={FiHash} label="ACN" value={profile.acn} />
+                                        <DetailItem icon={FiHash} label="ABN" value={profile.abn} />
+                                        <DetailItem icon={FiWebsite} label="Industry / Category" value={profile.category} />
+                                        <DetailItem icon={FiUser} label="Years in Business" value={profile.yearsInBusiness != null ? `${profile.yearsInBusiness}` : ''} />
                                         <DetailItem icon={FiWebsite} label="Website" value={profile.website} />
-                                        <DetailItem icon={FiPhone} label="Phone" value={profile.phone} />
+                                        <DetailItem icon={FiPhone} label="Business Phone" value={profile.phone} />
+                                        <DetailItem icon={FiPhone} label="Cell / Mobile" value={profile.mobile} />
                                         <DetailItem icon={FiGlobe} label="Country" value={profile.country} />
-                                        <DetailItem icon={FiMapPin} label="Location" value={[profile.city, profile.address].filter(Boolean).join(', ')} />
+                                        <DetailItem icon={FiMapPin} label="Business Address" value={formatBusinessAddress(profile)} />
+                                        <DetailItem icon={FiGlobe} label="Social Media" value={profile.socialLinks} />
+                                        <DetailItem icon={FiShield} label="Declaration" value={profile.declarationAccepted ? `Accepted on ${new Date(profile.declarationAcceptedAt).toLocaleDateString()}` : 'Not accepted'} />
                                     </>
                                 ) : (
                                     <>
@@ -163,14 +171,10 @@ export default function UserDetailView({ userId }) {
                                 )}
                             </dl>
 
-                            {isBusiness && profile.secondaryContactName && (
+                            {isBusiness && profile.productsServices && (
                                 <div className="mt-5 border-t border-slate-100 pt-5">
-                                    <p className="mb-2 text-xs font-semibold text-slate-400">Secondary Contact</p>
-                                    <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                        <DetailItem icon={FiUser} label="Name" value={profile.secondaryContactName} />
-                                        <DetailItem icon={FiPhone} label="Phone" value={profile.secondaryContactPhone} />
-                                        <DetailItem icon={FiMail} label="Email" value={profile.secondaryContactEmail} />
-                                    </dl>
+                                    <p className="mb-2 text-xs font-semibold text-slate-400">Products or Services Offered</p>
+                                    <p className="whitespace-pre-line text-sm text-slate-700">{profile.productsServices}</p>
                                 </div>
                             )}
                         </div>
@@ -251,6 +255,8 @@ export default function UserDetailView({ userId }) {
                 onClose={() => setApproveModalOpen(false)}
                 onConfirm={handleApprove}
                 isPending={approving}
+                currency={user?.currency || 'USD'}
+                role={user?.role}
             />
 
             <ImageModal

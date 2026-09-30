@@ -1,18 +1,24 @@
+
 import { FiArrowRight } from 'react-icons/fi';
 
 const FIELD_LABELS = {
     businessName: 'Business Name',
-    tradingName: 'Trading Name',
-    businessRegistrationNumber: 'Registration Number',
-    category: 'Category',
-    website: 'Website',
-    phone: 'Phone',
-    country: 'Country',
+    acn: 'ACN',
+    abn: 'ABN',
+    streetNumber: 'Street Number',
+    streetName: 'Street Name',
     city: 'City',
+    state: 'State',
+    postcode: 'Post/Zip Code',
+    country: 'Country',
+    phone: 'Business Phone',
+    mobile: 'Cell/Mobile',
+    website: 'Website',
+    socialLinks: 'Social Media Links',
+    category: 'Industry / Category',
+    productsServices: 'Products or Services',
+    yearsInBusiness: 'Years in Business',
     address: 'Address',
-    secondaryContactName: 'Secondary Contact Name',
-    secondaryContactPhone: 'Secondary Contact Phone',
-    secondaryContactEmail: 'Secondary Contact Email',
 };
 
 export default function ProfileFieldDiff({ currentProfile, proposedData }) {

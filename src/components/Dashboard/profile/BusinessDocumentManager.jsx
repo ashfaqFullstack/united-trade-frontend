@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef } from 'react';
@@ -9,6 +10,7 @@ import { uploadToCloudinary } from '@/services/business.service';
 const SLOTS = [
     { key: 'PHOTO_ID', label: 'Photo ID' },
     { key: 'PROOF_OF_ADDRESS', label: 'Proof of Address' },
+    { key: 'BUSINESS_LICENCE', label: 'Business Licence (optional)' },
 ];
 
 export default function BusinessDocumentsManager({ existingDocuments, onChange }) {

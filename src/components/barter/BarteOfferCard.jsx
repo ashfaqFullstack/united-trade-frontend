@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatDisplay } from '@/lib/currency';
 import Link from 'next/link';
 import { FiArrowRight } from 'react-icons/fi';
 import StatusBadge from '@/components/ui/StatusBadge';
@@ -12,7 +14,7 @@ function ListingThumb({ listing }) {
             </div>
             <div className="min-w-0">
                 <p className="truncate text-xs font-semibold text-slate-800">{listing?.title}</p>
-                <p className="text-[11px] text-slate-400">${Number(listing?.price || 0).toLocaleString()}</p>
+                <p className="text-[11px] text-slate-400">{formatDisplay(listing, 'price')}</p>
             </div>
         </div>
     );

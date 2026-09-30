@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatDisplay, formatMoney } from '@/lib/currency';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Modal from '@/components/ui/Modal';
@@ -32,7 +34,7 @@ export default function TradeNowModal({ open, onClose, listing }) {
                         </div>
                         <div>
                             <p className="text-sm font-semibold text-slate-900">{listing?.title}</p>
-                            <p className="text-xs text-slate-400">${Number(listing?.price).toLocaleString()} Trade Value</p>
+                            <p className="text-xs text-slate-400">{formatDisplay(listing, 'price')}</p>
                         </div>
                     </div>
 
@@ -40,12 +42,12 @@ export default function TradeNowModal({ open, onClose, listing }) {
                         <label className="mb-1.5 block text-sm font-medium text-slate-700">Amount</label>
                         <input
                             type="text"
-                            value={`$${Number(listing?.price).toLocaleString()}`}
+                            value={formatDisplay(listing, 'price')}
                             readOnly
                             className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-semibold text-slate-700"
                         />
                         <p className="mt-1 text-xs text-slate-400">
-                            Available Balance: ${(Number(wallet?.balance || 0) + Number(wallet?.creditLimit || 0)).toLocaleString()}
+                            Available Balance: {formatMoney(wallet?.display?.availableBalance ?? 0, wallet?.display?.currency)}
                         </p>
                     </div>
 

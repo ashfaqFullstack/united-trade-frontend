@@ -1,51 +1,33 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
-import {
-    getCurrencyRates,
-    createCurrencyRate,
-    updateCurrencyRate,
-    deleteCurrencyRate,
-} from '@/services/currency.service';
 
-// enabled=false by default — nobody accidentally fetches this unless
-// a page explicitly opts in.
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { getConversionPreview, getCurrencyRates, getMyCurrency } from '@/services/currency.service';
+
 export const useCurrencyRates = (enabled = true) => {
     return useQuery({
         queryKey: ['currencyRates'],
         queryFn: getCurrencyRates,
         enabled,
+        staleTime: 10 * 60 * 1000,
     });
 };
 
-export const useCreateCurrencyRate = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: createCurrencyRate,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['currencyRates'] });
-            toast.success('Currency rate added');
-        },
+export const useMyCurrency = (enabled = true) => {
+    return useQuery({
+        queryKey: ['myCurrency'],
+        queryFn: getMyCurrency,
+        enabled,
+        staleTime: 10 * 60 * 1000,
     });
 };
 
-export const useUpdateCurrencyRate = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: updateCurrencyRate,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['currencyRates'] });
-            toast.success('Currency rate updated');
-        },
-    });
-};
-
-export const useDeleteCurrencyRate = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: deleteCurrencyRate,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['currencyRates'] });
-            toast.success('Currency rate removed');
-        },
+// Powers "Receiver will get ≈ X" under the amount input.
+export const useConversionPreview = ({ receiverId, amount }, enabled = true) => {
+    const numeric = Number(amount);
+    return useQuery({
+        queryKey: ['conversionPreview', receiverId, numeric],
+        queryFn: () => getConversionPreview({ receiverId, amount: numeric }),
+        enabled: enabled && !!receiverId && numeric > 0,
+        placeholderData: keepPreviousData,
+        staleTime: 60 * 1000,
     });
 };

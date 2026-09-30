@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -15,6 +16,7 @@ import {
 import { DOCUMENT_LABELS, TIER_META } from '@/const/const';
 import ImageModal from '@/components/ui/ImageModal';
 import Image from 'next/image';
+import { formatBusinessAddress } from '@/lib/formatAddress';
 
 function InfoItem({ icon: Icon, label, value }) {
     return (
@@ -96,22 +98,26 @@ export default function ProfileOverview({ user, profile, onEdit }) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
-                    {isBusiness && <InfoItem icon={FiBriefcase} label="Trading name" value={profile?.tradingName} />}
-                    {isBusiness && <InfoItem icon={FiHash} label="Registration number" value={profile?.businessRegistrationNumber} />}
+                    {isBusiness && <InfoItem icon={FiHash} label="ACN" value={profile?.acn} />}
+                    {isBusiness && <InfoItem icon={FiHash} label="ABN" value={profile?.abn} />}
+                    {isBusiness && <InfoItem icon={FiBriefcase} label="Industry / Category" value={profile?.category} />}
+                    {isBusiness && <InfoItem icon={FiBriefcase} label="Years in business" value={profile?.yearsInBusiness != null ? `${profile.yearsInBusiness}` : ''} />}
                     {isBusiness && <InfoItem icon={FiGlobe} label="Website" value={profile?.website} />}
-                    <InfoItem icon={FiPhone} label="Phone" value={profile?.phone} />
+                    <InfoItem icon={FiPhone} label={isBusiness ? 'Business phone' : 'Phone'} value={profile?.phone} />
+                    {isBusiness && <InfoItem icon={FiPhone} label="Cell / Mobile" value={profile?.mobile} />}
                     <InfoItem icon={FiGlobe} label="Country" value={profile?.country} />
-                    <InfoItem icon={FiMapPin} label="Location" value={[profile?.city, profile?.address].filter(Boolean).join(', ')} />
+                    <InfoItem
+                        icon={FiMapPin}
+                        label={isBusiness ? 'Business address' : 'Location'}
+                        value={isBusiness ? formatBusinessAddress(profile) : [profile?.city, profile?.address].filter(Boolean).join(', ')}
+                    />
+                    {isBusiness && <InfoItem icon={FiGlobe} label="Social media" value={profile?.socialLinks} />}
                 </div>
 
-                {isBusiness && profile?.secondaryContactName && (
+                {isBusiness && profile?.productsServices && (
                     <div className="mt-7 border-t border-slate-100 pt-6">
-                        <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-400">Secondary contact</p>
-                        <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-3">
-                            <InfoItem icon={FiUser} label="Name" value={profile.secondaryContactName} />
-                            <InfoItem icon={FiPhone} label="Phone" value={profile.secondaryContactPhone} />
-                            <InfoItem icon={FiMail} label="Email" value={profile.secondaryContactEmail} />
-                        </div>
+                        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Products or services offered</p>
+                        <p className="whitespace-pre-line text-sm text-slate-700">{profile.productsServices}</p>
                     </div>
                 )}
             </section>

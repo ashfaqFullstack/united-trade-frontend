@@ -1,23 +1,31 @@
+
 'use client';
 
 import { useState, useRef } from 'react';
 import { toast } from 'sonner';
 import { LuCamera, LuX, LuArrowRight, LuCheck, LuPlus, LuLoaderCircle } from 'react-icons/lu';
 
-import { useUploadSignature, useSaveBusinessDocuments } from '@/hooks/useBusiness';
+import { useUploadSignature, useSaveBusinessDocuments, useCompleteBusinessProfile } from '@/hooks/useBusiness';
 import { uploadToCloudinary } from '@/services/business.service';
 
 const SLOTS = [
     { key: 'PHOTO_ID', label: 'Photo ID', hint: 'Driver Licence, Passport, or Photo Card' },
     { key: 'PROOF_OF_ADDRESS', label: 'Proof of Address', hint: 'Utility Bill, Bank Statement, or Lease Agreement' },
+    { key: 'BUSINESS_LICENCE', label: 'Business Licence (if applicable)', hint: 'Optional — upload your business licence if you have one', optional: true },
 ];
 
+const DECLARATION_TEXT =
+    'I confirm that the information provided is true and accurate. I agree to follow the trading rules and guidelines of United Trade card and understand that all trade transactions must comply with the exchange\u2019s policies.';
+
 export default function BusinessDocumentsStep({ onNext }) {
-    const [files, setFiles] = useState({ PHOTO_ID: [], PROOF_OF_ADDRESS: [] });
+    const [files, setFiles] = useState({ PHOTO_ID: [], PROOF_OF_ADDRESS: [], BUSINESS_LICENCE: [] });
+    const [declared, setDeclared] = useState(false);
     const inputRefs = useRef({});
 
     const { mutateAsync: getSignature } = useUploadSignature();
-    const { mutate: saveDocuments, isPending: saving } = useSaveBusinessDocuments();
+    const { mutate: saveDocuments, isPending: savingDocs } = useSaveBusinessDocuments();
+    const { mutate: saveDeclaration, isPending: savingDeclaration } = useCompleteBusinessProfile();
+    const saving = savingDocs || savingDeclaration;
 
     const handleFileSelect = async (slotKey, e) => {
         const selected = Array.from(e.target.files || []);
@@ -43,7 +51,7 @@ export default function BusinessDocumentsStep({ onNext }) {
                     ),
                 }));
             } catch {
-                toast.error(`Failed to upload a file for ${slotKey === 'PHOTO_ID' ? 'Photo ID' : 'Proof of Address'}`);
+                toast.error(`Failed to upload a file for ${SLOTS.find((x) => x.key === slotKey)?.label}`);
                 setFiles((prev) => ({
                     ...prev,
                     [slotKey]: prev[slotKey].filter((f) => f.previewUrl !== previewUrl),
@@ -59,33 +67,42 @@ export default function BusinessDocumentsStep({ onNext }) {
         }));
     };
 
+    const allFiles = Object.values(files).flat();
+
     const handleContinue = () => {
-        const allFiles = [...files.PHOTO_ID, ...files.PROOF_OF_ADDRESS];
         const hasBoth = files.PHOTO_ID.some((f) => f.url) && files.PROOF_OF_ADDRESS.some((f) => f.url);
 
         if (!hasBoth) {
             toast.error('Please upload at least one Photo ID and one Proof of Address');
             return;
         }
+        if (!declared) {
+            toast.error('Please accept the declaration to continue');
+            return;
+        }
 
         const uploaded = allFiles.filter((f) => f.url).map(({ url, publicId, fileType }) => ({ url, publicId, fileType }));
+        const onError = (error) => toast.error(error.response?.data?.message || 'Something went wrong');
 
-        saveDocuments(
-            { documents: uploaded },
+        // 1) record the declaration, 2) save the documents
+        saveDeclaration(
+            { declarationAccepted: true },
             {
-                onSuccess: () => onNext(),
-                onError: (error) => toast.error(error.response?.data?.message || 'Something went wrong'),
+                onSuccess: () => saveDocuments({ documents: uploaded }, { onSuccess: () => onNext(), onError }),
+                onError,
             }
         );
     };
 
-    const isUploading = [...files.PHOTO_ID, ...files.PROOF_OF_ADDRESS].some((f) => f.uploading);
+    const isUploading = allFiles.some((f) => f.uploading);
 
     return (
         <div className="space-y-5">
             {SLOTS.map((slot) => (
                 <div key={slot.key}>
-                    <p className="mb-1.5 text-sm font-medium text-slate-700">{slot.label}</p>
+                    <p className="mb-1.5 text-sm font-medium text-slate-700">
+                        {slot.label} {!slot.optional && <span className="text-red-500">*</span>}
+                    </p>
                     <p className="mb-2 text-xs text-slate-400">{slot.hint}</p>
 
                     <div className="grid grid-cols-4 gap-2">
@@ -138,10 +155,23 @@ export default function BusinessDocumentsStep({ onNext }) {
                 </div>
             ))}
 
+            <div className="border-t border-slate-100 pt-4">
+                <p className="mb-2 text-sm font-semibold text-slate-700">Declaration</p>
+                <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 p-3">
+                    <input
+                        type="checkbox"
+                        checked={declared}
+                        onChange={(e) => setDeclared(e.target.checked)}
+                        className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-indigo-600"
+                    />
+                    <span className="text-xs leading-relaxed text-slate-600">{DECLARATION_TEXT}</span>
+                </label>
+            </div>
+
             <button
                 type="button"
                 onClick={handleContinue}
-                disabled={saving || isUploading}
+                disabled={saving || isUploading || !declared}
                 className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 disabled:opacity-60"
             >
                 {saving ?

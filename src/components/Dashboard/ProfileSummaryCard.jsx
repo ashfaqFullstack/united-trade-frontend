@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useAuthStore } from '@/store/useAuthStore';
@@ -17,9 +18,11 @@ export default function ProfileSummaryCard() {
     const fields = isBusiness
         ? [
             ['Business Name', profile.businessName],
-            ['Category', profile.category],
+            ['Industry / Category', profile.category],
             ['City', profile.city],
-            ['Phone', profile.phone],
+            ['Business Phone', profile.phone],
+            ['Mobile', profile.mobile],
+            ['Years in Business', profile.yearsInBusiness],
         ]
         : [
             ['Phone', profile.phone],

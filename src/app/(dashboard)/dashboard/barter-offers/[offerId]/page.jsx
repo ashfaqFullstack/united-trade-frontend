@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatDisplay } from '@/lib/currency';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -26,7 +28,7 @@ function ListingPanel({ label, listing }) {
                 </div>
                 <div className="min-w-0">
                     <h2 className="truncate text-base font-bold text-slate-900">{listing?.title || 'Listing unavailable'}</h2>
-                    <p className="mt-1 text-lg font-bold text-blue-600">${Number(listing?.price || 0).toLocaleString()}</p>
+                    <p className="mt-1 text-lg font-bold text-blue-600">{formatDisplay(listing, 'price')}</p>
                     {listing?.description && <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-500">{listing.description}</p>}
                 </div>
             </div>

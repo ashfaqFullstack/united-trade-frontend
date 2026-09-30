@@ -44,7 +44,7 @@ export default function CustomerProfileEditForm({ onCancel, onSaved }) {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <TextInput label="Phone Number" required error={errors.phone?.message} {...register('phone')} />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TextInput label="Country" required error={errors.country?.message} {...register('country')} />
+                {/* <TextInput label="Country" required error={errors.country?.message} {...register('country')} /> */}
                 <TextInput label="City" required error={errors.city?.message} {...register('city')} />
             </div>
             <TextInput label="Address" {...register('address')} />

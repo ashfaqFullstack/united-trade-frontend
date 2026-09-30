@@ -1,5 +1,7 @@
+
 'use client';
 
+import { formatDisplay } from '@/lib/currency';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LuLoaderCircle } from 'react-icons/lu';
@@ -69,7 +71,7 @@ export default function BarterSwapModal({ open, onClose, targetListing }) {
                                     </div>
                                     <div className="p-1.5">
                                         <p className="truncate text-[11px] font-semibold text-slate-800">{listing.title}</p>
-                                        <p className="text-[10px] text-slate-400">${Number(listing.price).toLocaleString()}</p>
+                                        <p className="text-[10px] text-slate-400">{formatDisplay(listing, 'price')}</p>
                                     </div>
                                 </button>
                             ))}

@@ -1,3 +1,5 @@
+
+import { formatMoney } from '@/lib/currency';
 import { FiArrowDownLeft, FiArrowUpRight, FiRefreshCw } from 'react-icons/fi';
 
 const TYPE_META = {
@@ -6,7 +8,7 @@ const TYPE_META = {
     topup: { icon: FiRefreshCw, color: 'bg-blue-50 text-blue-600', sign: '+' },
 };
 
-export default function TransactionListItem({ type, title, subtitle, amount, date }) {
+export default function TransactionListItem({ type, title, subtitle, amount, currency, date }) {
     const meta = TYPE_META[type] || TYPE_META.sent;
     const Icon = meta.icon;
 
@@ -23,7 +25,7 @@ export default function TransactionListItem({ type, title, subtitle, amount, dat
             </div>
             <div className="text-right">
                 <p className={`text-sm font-bold ${meta.sign === '+' ? 'text-emerald-600' : 'text-red-500'}`}>
-                    {meta.sign}${Number(amount).toLocaleString()}
+                    {meta.sign}{formatMoney(amount, currency)}
                 </p>
                 <p className="text-xs text-slate-400">{date}</p>
             </div>
