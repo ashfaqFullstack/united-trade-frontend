@@ -32,7 +32,7 @@ export default function CompanyAccountCard() {
             <p className="mt-3 text-3xl font-bold">{formatMoney(account?.totalBalance ?? 0, 'USD')}</p>
             <p className="mt-2 flex items-center gap-1.5 text-xs text-white/70">
                 <FiTrendingUp className="h-3.5 w-3.5" />
-                Accumulated from trade commissions and membership fees
+                Accumulated from trade commissions
             </p>
 
             <FundWalletModal

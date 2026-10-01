@@ -4,13 +4,15 @@
 import { useMyCurrency } from '@/hooks/useCurrency';
 import { BUSINESS_CATEGORIES } from '@/const/const';
 import { useState } from 'react';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export default function MarketplaceFilters({ onApply }) {
     const [category, setCategory] = useState('');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [country, setCountry] = useState('');
-    const { data: myCurrency } = useMyCurrency();
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+    const { data: myCurrency } = useMyCurrency(isAuthenticated);
 
     const apply = () => {
         onApply({

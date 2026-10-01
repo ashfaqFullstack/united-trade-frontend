@@ -10,8 +10,8 @@ export const getAllTransactions = async (params) => {
     return res.data;
 };
 
-export const getFeeLogs = async (params) => {
-    const res = await api.get('/admin/fees/logs', { params });
+export const getCommissionLogs = async (params) => {
+    const res = await api.get('/admin/commissions/logs', { params });
     return res.data;
 };
 

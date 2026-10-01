@@ -77,6 +77,11 @@ export default function UserDetailView({ userId }) {
 
     const displayName = profile?.businessName || user.name;
     const initials = displayName?.slice(0, 2)?.toUpperCase() || '?';
+    const walletCurrency = user.wallet?.display?.currency || user.currency || 'USD';
+    const formatWalletAmount = (amount) => new Intl.NumberFormat(undefined, {
+        style: 'currency',
+        currency: walletCurrency,
+    }).format(Number(amount ?? 0));
 
     return (
         <div className="mx-auto max-w-4xl">
@@ -228,6 +233,26 @@ export default function UserDetailView({ userId }) {
                             <p className="mt-4 border-t border-white/20 pt-3 text-xs text-white/70">
                                 Final credit limit is confirmed by you at approval — it can differ from this request.
                             </p>
+                        </div>
+                    )}
+
+                    {user.status === 'APPROVED' && user.wallet && (
+                        <div className="rounded-2xl border border-slate-100 bg-white p-6">
+                            <h3 className="mb-4 text-sm font-bold text-slate-900">Wallet & Credit</h3>
+                            <dl className="space-y-4">
+                                <div>
+                                    <dt className="text-xs font-medium text-slate-400">Assigned Credit Limit</dt>
+                                    <dd className="mt-1 text-lg font-bold text-slate-900">
+                                        {formatWalletAmount(user.wallet.display?.creditLimit)}
+                                    </dd>
+                                </div>
+                                <div className="border-t border-slate-100 pt-3">
+                                    <dt className="text-xs font-medium text-slate-400">Current Balance</dt>
+                                    <dd className="mt-1 text-lg font-bold text-slate-900">
+                                        {formatWalletAmount(user.wallet.display?.balance)}
+                                    </dd>
+                                </div>
+                            </dl>
                         </div>
                     )}
 

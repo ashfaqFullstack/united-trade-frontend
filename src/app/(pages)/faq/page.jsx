@@ -25,7 +25,7 @@ const faqs = [
     {
         question: "What are the trading fees?",
         answer:
-            "Our fees depend on the service and transaction type you choose. You can review the applicable pricing before completing a transaction, with no unexpected charges.",
+            "There is no recurring monthly fee. Trade commissions may apply to transactions and are recorded with each completed trade.",
     },
     {
         question: "Which payment methods do you accept?",

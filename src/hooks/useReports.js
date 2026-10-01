@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
     getCompanyAccount,
     getAllTransactions,
-    getFeeLogs,
+    getCommissionLogs,
     getDashboardStats,
     getUserDashboardSummary,
     getUserSalesChart,
@@ -16,8 +16,8 @@ export const useAllTransactions = (params) => {
     return useQuery({ queryKey: ['allTransactions', params], queryFn: () => getAllTransactions(params) });
 };
 
-export const useFeeLogs = (params) => {
-    return useQuery({ queryKey: ['feeLogs', params], queryFn: () => getFeeLogs(params) });
+export const useCommissionLogs = (params) => {
+    return useQuery({ queryKey: ['commissionLogs', params], queryFn: () => getCommissionLogs(params) });
 };
 
 export const useDashboardStats = (enabled = true) => {
