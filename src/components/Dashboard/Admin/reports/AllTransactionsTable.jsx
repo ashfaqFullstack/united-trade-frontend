@@ -47,9 +47,15 @@ export default function AllTransactionsTable() {
                                     <p className="truncate font-medium text-slate-900">{t.receiver?.name}</p>
                                     <p className="truncate text-xs text-slate-400">{t.receiver?.email}</p>
                                 </div>
-                                <span className="font-semibold text-slate-800">{formatMoney(t.amount, 'USD')}</span>
+                                <span className="font-semibold text-slate-800">
+                                    {formatMoney(t.display?.amount ?? t.amount, t.display?.currency || 'AUD')}
+                                </span>
                                 <span className="text-slate-500">
-                                    {formatMoney(Number(t.commissionBuyer) + Number(t.commissionSeller), 'USD')}
+                                    {formatMoney(
+                                        Number(t.display?.commissionBuyer ?? t.commissionBuyer)
+                                        + Number(t.display?.commissionSeller ?? t.commissionSeller),
+                                        t.display?.currency || 'AUD',
+                                    )}
                                 </span>
                                 <span className="hidden text-slate-400 sm:block">
                                     {new Date(t.createdAt).toLocaleDateString()}

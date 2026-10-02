@@ -40,7 +40,7 @@ export default function AdminOverview() {
                         </span>
                         <p className="mt-3 text-xl font-bold text-slate-900">
                             {card.isCurrency
-                                ? formatMoney(stats?.[card.key] ?? 0, 'USD')
+                                ? formatMoney(stats?.[card.key] ?? 0, stats?.currency || 'AUD')
                                 : Number(stats?.[card.key] ?? 0).toLocaleString()}
                         </p>
                         <p className="mt-1 text-xs text-slate-400">{card.label}</p>

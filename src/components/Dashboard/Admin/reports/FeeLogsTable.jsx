@@ -42,7 +42,9 @@ export default function FeeLogsTable() {
                                 <span className="inline-flex w-fit items-center rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-600">
                                     Trade Commission
                                 </span>
-                                <span className="font-semibold text-slate-800">{formatMoney(log.amount, 'USD')}</span>
+                                <span className="font-semibold text-slate-800">
+                                    {formatMoney(log.display?.amount ?? log.amount, log.display?.currency || 'AUD')}
+                                </span>
                                 <span className="hidden text-slate-400 sm:block">{new Date(log.createdAt).toLocaleDateString()}</span>
                             </div>
                         ))}

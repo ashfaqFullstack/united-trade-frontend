@@ -29,7 +29,9 @@ export default function CompanyAccountCard() {
                     Fund My Wallet
                 </button>
             </div>
-            <p className="mt-3 text-3xl font-bold">{formatMoney(account?.totalBalance ?? 0, 'USD')}</p>
+            <p className="mt-3 text-3xl font-bold">
+                {formatMoney(account?.display?.totalBalance ?? account?.totalBalance ?? 0, account?.display?.currency || 'AUD')}
+            </p>
             <p className="mt-2 flex items-center gap-1.5 text-xs text-white/70">
                 <FiTrendingUp className="h-3.5 w-3.5" />
                 Accumulated from trade commissions
@@ -38,7 +40,7 @@ export default function CompanyAccountCard() {
             <FundWalletModal
                 open={fundModalOpen}
                 onClose={() => setFundModalOpen(false)}
-                companyBalance={account?.totalBalance}
+                companyBalanceDisplay={account?.display?.totalBalance}
             />
         </div>
     );

@@ -55,7 +55,7 @@ export default function PlatformGrowthChart() {
                             <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                             <Tooltip
                                 contentStyle={{ borderRadius: 12, border: '1px solid #f1f5f9', fontSize: 12 }}
-                                formatter={(value, name) => [formatMoney(value, 'USD'), name === 'revenue' ? 'Revenue' : 'Trade Volume']}
+                                formatter={(value, name) => [formatMoney(value, 'AUD'), name === 'revenue' ? 'Revenue' : 'Trade Volume']}
                             />
                             <Area type="monotone" dataKey="revenue" stroke="#2563eb" strokeWidth={2} fill="url(#revenueGradient)" />
                         </AreaChart>
