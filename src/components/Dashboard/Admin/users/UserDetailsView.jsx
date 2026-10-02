@@ -77,7 +77,7 @@ export default function UserDetailView({ userId }) {
 
     const displayName = profile?.businessName || user.name;
     const initials = displayName?.slice(0, 2)?.toUpperCase() || '?';
-    const walletCurrency = user.wallet?.display?.currency || user.currency || 'AUD';
+    const walletCurrency = user.wallet?.display?.currency || user.currency || '$';
     const formatWalletAmount = (amount) => new Intl.NumberFormat(undefined, {
         style: 'currency',
         currency: walletCurrency,
