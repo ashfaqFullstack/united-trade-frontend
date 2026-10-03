@@ -12,8 +12,8 @@ const TABS = [
     { key: 'all', label: 'All' },
     { key: 'received', label: 'Received' },
     { key: 'sent', label: 'Sent' },
-    { key: 'topup', label: 'Top Up', disabled: true },
-    { key: 'withdraw', label: 'Withdraw', disabled: true },
+    // { key: 'topup', label: 'Top Up', disabled: true },
+    // { key: 'withdraw', label: 'Withdraw', disabled: true },
 ];
 
 export default function TransactionHistory() {
